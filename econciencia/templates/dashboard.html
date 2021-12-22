@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+
+{% block body%}
+    <div class="text_centrado container">
+
+        <h1>{{mensaje}}</h1>
+    </div>
+
+{% endblock%}
+{% block stylesheets %}
+
+    {{block.super}}
+    <style>
+        .text_centrado{
+            display: flex;
+            justify-content: center;
+            height: 800px;
+            align-items: center;
+        }
+
+    </style>
+{% endblock%}
