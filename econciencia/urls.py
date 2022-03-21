@@ -15,13 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from econciencia.views import dashboard,dame_la_fecha_puto,recibirParametrosDeUrl,login,registro
+from econciencia.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('dashboard/', dashboard, name="dashboard"),
     path('login/', login, name="login"),
     path('fecha/', dame_la_fecha_puto),
     path('datos_en_url/<int:edad>/<int:anio>', recibirParametrosDeUrl),
     path('registro/', registro, name="registro"),
+    path('',dashboard,name="inicio"),
 ]

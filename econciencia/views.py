@@ -8,19 +8,8 @@ from django.contrib import messages
 
 
 def dashboard(request ): # primera vista 
-    if request.method == 'POST' and request.POST:
-        user = request.POST.get('user')
-        password = request.POST.get('password')
-        if user == 'ejemplo' and  password == "holamundo":
-            mensaje = 'Felicidades te has logueado!!'
-        else:
-            mensaje = 'Usuario o contraseña incorrectas'
-        return render(request, 'dashboard.html',{
-            'post': request.POST,
-            'mensaje': mensaje,
-        })
-    else:
-        return redirect('login')
+    context = {'mensaje': 'hola mundo'}
+    return render(request, 'dashboard.html',context)
 
 
 def dame_la_fecha_puto(request):

@@ -14,9 +14,11 @@
             </div>
         </div>
         <div class="card-body">
-            <form method="post" class="form">
-                {% csrf_token %}
-                {{form.as_p}}
+            <form method="post">
+                <div class="form-group">
+                    {% csrf_token %}
+                    {{form.as_p}}
+                </div>
         
                 <button type="submit" id="submit">Registrarse</button>
             </form>
