@@ -1,0 +1,64 @@
+
+{% extends 'users/base.html'%}
+
+{% block title %}
+	Econciencia - Login
+{% endblock %}
+
+{%block body%}       
+
+
+	{% if error %}
+		<p class="alert alert-danger position-absolute w-100">{{error}}</p>
+	{% endif %}
+	{% load static %}
+	<form class="login" method="post" action="{% url 'login'%}">
+		{% csrf_token %}
+		<div class="login__field">
+			<svg class="bi login__icon" width="20" height="20" fill="currentColor">
+				<use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#person-fill"/>
+			</svg>
+			<input type="text" name="username" class="login__input" placeholder="Usuario">
+		</div>
+		<div class="login__field">
+			<svg class="bi login__icon" width="20" height="20" fill="currentColor">
+				<use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#lock-fill"/>
+			</svg>
+			<input type="password" name ="password" class="login__input" placeholder="Contraseña">
+		</div>
+		<button class="button login__submit">
+			<span class="button__text">Iniciar Sesión</span>
+			<svg class="bi button__icon" width="20" height="20" fill="currentColor">
+				<use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#caret-right-fill"/>
+			</svg>
+			
+		</button>
+	</form>
+	<div class="social-login">
+		<h4></h4>
+		<div class="social-icons">
+			<a href="#" class="social-login__icon fab fa-instagram">
+				<!--<svg class="bi button__icon" width="20" height="20" fill="currentColor">
+					<use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#facebook"/>
+				</svg>-->
+			</a>
+			<p><a href="{% url 'singup' %}" class="">Registrarse</a></p>
+			
+		</div>
+		<div>
+			<p><a href="{% url 'recuperar_contrasena' %}" class="">Olvidé mi contraseña</a></p>
+		</div>
+	</div>
+
+
+{% endblock %}
+
+{% block stylesheets %}
+
+	{{block.super}}
+
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}

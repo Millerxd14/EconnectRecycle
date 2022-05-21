@@ -3,17 +3,20 @@
 
 {% block body%}
     <div class="container">
-
-        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
+        {% load static %}
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" >
+            <div class="carousel-inner" style="max-height: 550px;">
                 <div class="carousel-item active">
-                    <img src="..." class="d-block w-100" alt="...">
+                    <img src="https://fondosmil.com/fondo/35152.jpg" class="d-block img-fluid" alt="blank">
                 </div>
                 <div class="carousel-item">
-                    <img src="..." class="d-block w-100" alt="...">
+                    <img src="https://c8.alamy.com/compes/dn7mf5/fondo-de-reciclaje-dn7mf5.jpg" class="d-block img-fluid" alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="..." class="d-block w-100" alt="...">
+                    <img src="https://png.pngtree.com/thumb_back/fh260/back_our/20190617/ourmid/pngtree-creative-environmental-protection-background-material-template-image_125709.jpg" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="{% static 'images/logo.png'%}" class="d-block img-fluid" alt="...">
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">

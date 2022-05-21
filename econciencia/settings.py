@@ -28,19 +28,25 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'miller.datawifi.co',
     '127.0.0.1',
+    '192.168.0.13',
 ]
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    #django apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'DocumentacionReciclaje',
+
+    #Local apps
+    'users',
+    'posts',
+
 ]
 
 MIDDLEWARE = [
@@ -120,10 +126,28 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
-
-STATIC_URL = '/static/'
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
+
+#static variables
+STATIC_URL = '/static/'
+STATICFILES_DIRS =(
+    BASE_DIR / 'static',
+)
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
+
+
+LOGIN_URL = '/login'
+
+
+#Media Files
+MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = '/media/'
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+

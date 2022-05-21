@@ -1,0 +1,50 @@
+{# extends "users/base.html" #} 
+{% block tittle %}
+   <title> Econciencia - SingUp</title>
+{% endblock %}
+
+{% block body %}
+    {% load static %}
+    <form action="{% url 'singup'%}" method="post" class="login">
+        {% csrf_token%}
+        <div class="login__field">
+			<svg class="bi login__icon" width="20" height="20" fill="currentColor">
+				<use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#person-fill"/>
+			</svg>
+			<input type="text" name="username" class="login__input" placeholder="Usuario">
+		</div>
+		<div class="login__field">
+			<svg class="bi login__icon" width="20" height="20" fill="currentColor">
+				<use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#lock-fill"/>
+			</svg>
+			<input type="password" name ="password" class="login__input" placeholder="Contraseña" required="True">
+		</div>
+        <div class="login__field">
+			<svg class="bi login__icon" width="20" height="20" fill="currentColor">
+				<use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#lock-fill"/>
+			</svg>
+			<input type="password" name ="password2" class="login__input" placeholder="Confirrma contraseña" required="True">
+		</div>
+
+        
+		<button class="button login__submit">
+			<span class="button__text">Iniciar Sesión</span>
+			<svg class="bi button__icon" width="20" height="20" fill="currentColor">
+				<use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#caret-right-fill"/>
+			</svg>
+			
+		</button>
+    </form>
+
+{% endblock%}
+
+{% block stylesheets %}
+   
+
+
+{% endblock %}
+
+
+{% block javascripts %}
+
+{% endblock %}
