@@ -3,7 +3,10 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
 
+#models
 
+from django.contrib.auth.models  import User
+from users.models import Profile
 
 # Create your views here.
 def login_view(request):
@@ -33,6 +36,27 @@ def logout_view(request):
 
 def singup(request):
     '''sing up view'''
+    
+    if(request.method == "POST"):
+        username = request.POST.get('usuername')
+        password = request.POST['password']        
+        confirm_password = request.POST['confirm_password']        
+        first_name = request.POST['first_name']  
+        last_name = request.POST['last_name']        
+        email = request.POST['email']        
+        user_type = request.POST['user_type']  
+        if(password != confirm_password):
+            return render(request,'users/singup.html',{
+                'error': 'Las contraseñas no coinciden'
+            })
+        user = User.objects.create_user(username =username, password = password)
+        user.firts_name = first_name
+        user.last_name = last_name
+        user.email = email
+        user.save()
+        profile = Profile(user = user, )
+
+
     return render(request,'users/singup.html')
 
 

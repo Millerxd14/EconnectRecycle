@@ -1,46 +1,101 @@
-{# extends "users/base.html" #} 
+{% extends "users/base.html" %} 
 {% block tittle %}
    <title> Econciencia - SingUp</title>
 {% endblock %}
 
 {% block body %}
     {% load static %}
-    <form action="{% url 'singup'%}" method="post" class="login">
-        {% csrf_token%}
-        <div class="login__field">
-			<svg class="bi login__icon" width="20" height="20" fill="currentColor">
-				<use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#person-fill"/>
-			</svg>
-			<input type="text" name="username" class="login__input" placeholder="Usuario">
-		</div>
-		<div class="login__field">
-			<svg class="bi login__icon" width="20" height="20" fill="currentColor">
-				<use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#lock-fill"/>
-			</svg>
-			<input type="password" name ="password" class="login__input" placeholder="Contraseña" required="True">
-		</div>
-        <div class="login__field">
-			<svg class="bi login__icon" width="20" height="20" fill="currentColor">
-				<use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#lock-fill"/>
-			</svg>
-			<input type="password" name ="password2" class="login__input" placeholder="Confirrma contraseña" required="True">
-		</div>
 
-        
-		<button class="button login__submit">
-			<span class="button__text">Iniciar Sesión</span>
-			<svg class="bi button__icon" width="20" height="20" fill="currentColor">
-				<use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#caret-right-fill"/>
-			</svg>
+	<form action="{% url 'singup'%}" method="post" class="login">
+		{% csrf_token%}
+
+		<div class="d-flex contenedor_inputs">
+			{% if error %}
+				<p class="alert alert-danger position-absolute w-100">{{error}}</p>
+			{% endif %}
+			<div class="figuras">
+				<span class=""></span>
+				<span class=""></span>
+			</div>
+			<div class="row login__field">
+				<div class="col-md-12">
+					<svg class="bi login__icon" width="20" height="20" fill="currentColor">
+						<use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#person-circle"/>
+					</svg>
+					<input class="login__input" type="text" name="username" required="True" placeholder="Usuario">
+				</div>
+				
+			</div>
+			<div class="row login__field">
+				<div class="col-md-6">
+					<svg class="bi login__icon" width="20" height="20" fill="currentColor">
+						<use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#lock-fill"/>
+					</svg>
+					<input class="login__input" type="password" name="password" id="password" required="True" placeholder="Contraseña">
+				</div>
+				<div class="col-md-6 ">
+					<svg class="bi login__icon" width="20" height="20" fill="currentColor">
+						<use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#lock-fill"/>
+					</svg>
+				<input class="login__input" type="password" name="confirm_password" required="True" id="confirm_password" placeholder="Confirmar contraseña">
+				</div>
+			</div>
+
+			<div class="row login__field">
+				<div class="col-md-6">
+					<svg class="bi login__icon" width="20" height="20" fill="currentColor">
+						<use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#person-fill"/>
+					</svg>
+					<input class="login__input" type="text" name="first_name" id="first_nme" required="True" placeholder="Nombres">
+				</div>
+				<div class="col-md-6">
+					<svg class="bi login__icon" width="20" height="20" fill="currentColor">
+						<use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#person-fill"/>
+					</svg>
+					<input class="login__input" type="text" name="last_name" id="last_name" required="True" placeholder="Apellidos">
+				</div>
+			</div>
+
+
+			<div class="login__field">
+				<svg class="bi login__icon" width="20" height="20" fill="currentColor">
+					<use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#envelope-fill"/>
+				</svg>
+				<input class="login__input" type="email" name="email" id="email" required="True" placeholder="Correo eléctronico">
+			</div>
+
+
+			<div class="login__field">
+				<svg class="bi login__icon" width="20" height="20" fill="currentColor">
+					<use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#arrow-right-circle-fill"/>
+				</svg>
+				<select class="login__input" name="user_type" id="user_type">
+					<option value="0" selected> ¿ Que tipo de usuario eres ?</option>
+					<option value="1"> Productor de residuos </option>
+					<option value="2"> Recolector de residuos</option>
+				</select>
+			</div>
+			<div class="row login__field">
+				<button class="button login__submit">
+					<span class="button__text">Registrarme</span>
+					<svg class="bi button__icon" width="20" height="20" fill="currentColor">
+						<use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#caret-right-fill"/>
+					</svg>
+				</button>
+			</div>
 			
-		</button>
-    </form>
+		</div>
+	</form>
 
+	
 {% endblock%}
 
 {% block stylesheets %}
    
-
+	<style>
+		
+	</style>
+	<link rel="stylesheet" href="{% static 'css/users/singup.css'%}">
 
 {% endblock %}
 
