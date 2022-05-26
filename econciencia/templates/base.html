@@ -8,20 +8,25 @@
     <title>{% block title %} Econciencia {% endblock %}</title>
     {% load static %}
     <link rel="icon" type="image/svg+xml" href="{% static 'css/icons/favicon.svg' %}">
-    <link href="{% static 'css/bootstrap/bootstrap.min.css' %}" rel="stylesheet">  
+    <link href="{% static 'css/bootstrap/bootstrap.css' %}" rel="stylesheet"> 
+    
+    <!-- links estilos de notificaciones -->
+    <link href="{% static '/js/node_modules/@pnotify/core/dist/PNotify.css' %}" rel="stylesheet"> 
+    <link href="{% static '/js/node_modules/@pnotify/core/dist/BrightTheme.css' %}" rel="stylesheet"> 
+    <link href="{% static '/js/node_modules/@pnotify/bootstrap4/dist/PNotifyBootstrap4.css' %}" rel="stylesheet">
+    <link href="{% static 'css/custom.css' %}" rel="stylesheet"> 
+
+    
 </head>
 
 <body>
     
     <div class="container-fluid">
-        {% if messages%}
+        {% if messages %}
         {%for message in messages %}
-            <div class="alert alert-{{message.tags}}">
-                ! {{message}} !
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+            <script>
+                send_notification(type,tittle,text,delay)
+            </script>
         {%endfor%}
         {%endif%}
         
@@ -33,10 +38,10 @@
                 
                 <div class="container-fluid">
                     <div>
-                        <a href="{% url 'inicio' %}" class="navbar-brand"> 
+                        <a href="{% url 'home' %}" class="navbar-brand"> 
                             <img src="{% static 'images/logo.png'%}" class="navbar-logo" >
                         </a>
-                        <a href="{% url 'inicio' %}" class="navbar-brand"> 
+                        <a href="{% url 'home' %}" class="navbar-brand"> 
                             <img src="{% static 'images/type_logo.png'%}" class="navbar-type" >
                         </a>
                     </div>
@@ -48,7 +53,7 @@
                 <div id="MenuNavegacion" class="navbar-collapse collapse" >
                     <ul class="navbar-nav ms-3">
                         <li class="nav-item">
-                            <a class="nav-link active" href="{% url 'inicio' %}">Inicio</a>
+                            <a class="nav-link active" href="{% url 'home' %}">Inicio</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Recicla</a>
@@ -63,22 +68,33 @@
                                 <li><a class="dropdown-item" href="#">Contacta con nosotros</a></li>
                             </ul>
                         </li>
+                        {% if not user.is_authenticated %}
+                            <li class="nav-item ml-3">
+                                <button class="btn btn-success   btn-sm text-nowrap boton_inicio" onclick="window.location.href='{% url 'login' %}'">
+                                    Iniciar sesión
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="btn btn-primary   btn-sm text-nowrap boton_inicio" onclick="window.location.href='{% url 'singup' %}'">
+                                    Registrarse
+                                </button>
+                            </li>
+                    
+                        {% else %}
+                            <li class="nav-item">
+                                <a href="#">
+                                    <svg class="bi login__icon" width="32" height="32" fill="currentColor">
+                                        <use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#person-circle"/>
+                                    </svg>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <li><a class="nav-link" href="{% url 'home'%}">@{{request.user.username}}</a></li>
+                            </li>
+                        {% endif %}
                     </ul>
-                    <ul class="navbar-nav ms-3 pt-1">
-                        <li class="nav-item">
-                            <button class="btn btn-success   btn-sm text-nowrap" style="max-width: 300px;width: 125px;" onclick="window.location.href='{% url 'login' %}'">
-                                Iniciar sesión
-                            </button>
-                        </li>
-                        
-                    </ul>
-                    <ul class="navbar-nav ms-3 pt-1">
-                        <li class="nav-item">
-                            <button class="btn btn-primary   btn-sm text-nowrap" style="max-width: 300px;width: 125px;" onclick="window.location.href='{% url 'singup' %}'">
-                                Registrarse
-                            </button>
-                        </li>
-                    </ul>
+
+                    
                 </div>
             </nav>
 
@@ -103,28 +119,67 @@
             max-width: 300px;
             
         }
-        @media screen and (max-width: 600px) {
-            .navbar-type {
-                display: inline-block;
-                vertical-align: middle;
-                width: 200px;
-            }
-        }
         .navbar-logo{
             display: inline-block;
             vertical-align: middle;
             width: 56px;
         }
+        .boton_inicio{
+            max-width: 300px;
+            width: 125px;
+            margin-right: 5px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+        @media screen and (max-width: 1024px) {
+            .navbar-type {
+                display: inline-block;
+                vertical-align: middle;
+                width: 200px;
+            }
+            .boton_inicio{
+                max-width: 100px;
+                width: 100px;
+                margin-right: 5px;
+                margin-top: 5px;
+                margin-bottom: 5px;
+            }
+        }
+        
     </style>
 
     {% endblock %}
 
 
     {% block javascripts %}
-
-
+    <script src="{% static '/js/bootstrap/bootstrap.js' %}" type="text/javascript"></script>
+    
+    <script src="{% static '/js/node_modules/@pnotify/core/dist/PNotify.js' %}" type="text/javascript"></script>
+    <script src="{% static '/js/node_modules/@pnotify/bootstrap4/dist/PNotifyBootstrap4.js' %}" type="text/javascript"></script>
+    <script type="module">  
+        PNotify.defaultModules.set(PNotifyBootstrap4, {});
+        PNotify.defaults.icons = 'bootstrap4';
+        function send_notification(type,tittle,text,delay){
+            PNotify.alert({
+                type: type,
+                title: tittle,
+                text: text,
+                delay: delay
+            });
+        }
+        
+        
+          
+        PNotify.alert({
+            type: 'success',
+            title: 'Font Awesome Icon',
+            text: 'I have an icon that uses the Font Awesome icon styles.',
+            delay: 3000
+        });
+        </script>
+    
     {% endblock %}
-    <script src="{% static '/js/bootstrap/bootstrap.bundle.min.js' %}"></script>
+    
 </body>
 </html>
 

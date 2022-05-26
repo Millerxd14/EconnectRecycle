@@ -11,10 +11,10 @@
 
 		<div class="d-flex contenedor_inputs">
 			{% if error %}
-				<p class="alert alert-danger position-absolute w-100">{{error}}</p>
+				<p class="alert alert-danger position-relative w-100">{{error}}</p>
 			{% endif %}
 			<div class="figuras">
-				<span class=""></span>
+				<span class="figura_1"></span>
 				<span class=""></span>
 			</div>
 			<div class="row login__field">
@@ -22,7 +22,7 @@
 					<svg class="bi login__icon" width="20" height="20" fill="currentColor">
 						<use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#person-circle"/>
 					</svg>
-					<input class="login__input" type="text" name="username" required="True" placeholder="Usuario">
+					<input class="login__input" type="text" name="usuario" id="usuario" required="True" placeholder="Usuario">
 				</div>
 				
 			</div>

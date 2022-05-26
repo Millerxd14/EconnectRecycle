@@ -7,9 +7,9 @@ from posts.models import Post
 
 
 
-def dashboard(request ): # primera vista 
+def home(request ): # primera vista 
     context = {'mensaje': 'hola mundo'}
-    return render(request, 'dashboard.html',context)
+    return render(request, 'home.html',context)
 
 
 def dame_la_fecha_puto(request):

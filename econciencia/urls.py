@@ -18,7 +18,7 @@ urlpatterns = [
     path('singup/',users_views.singup, name='singup'),
     path('fecha/', econciencia_views.dame_la_fecha_puto),
     path('datos_en_url/<int:edad>/<int:anio>', econciencia_views.recibirParametrosDeUrl, name='datos_url'),
-    path('',econciencia_views.dashboard,name="inicio"),
+    path('',econciencia_views.home,name="home"),
     path('posts/latest_posts/',posts_views.latest_posts,name="latest_posts"),
     path('recuperar_contrasena/', users_views.recuperar_contrasena, name="recuperar_contrasena"),
 

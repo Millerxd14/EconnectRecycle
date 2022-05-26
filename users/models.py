@@ -16,7 +16,7 @@ class Profile(models.Model):
 
     direction = models.CharField(max_length= 100, blank=False)
     phone_number = models.CharField(max_length=15, blank=True)
-    person_type = models.IntegerField(blank=False)
+    person_type = models.IntegerField(blank=True, null=True)
 
     profile_picture = models.ImageField(upload_to='users/pictures',blank=True,null=True)
     company_name = models.CharField(max_length=200,blank=True)
