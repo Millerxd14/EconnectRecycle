@@ -6,12 +6,8 @@
 {% endblock %}
 
 {%block body%}       
-
-
-	{% if error %}
-		<p class="alert alert-danger position-absolute w-100">{{error}}</p>
-	{% endif %}
 	{% load static %}
+	
 	<form class="login" method="post" action="{% url 'login'%}">
 		{% csrf_token %}
 		<div class="login__field">
@@ -249,4 +245,6 @@
 
 {% block javascripts %}
 
+	{{block.super}}
+	
 {% endblock %}

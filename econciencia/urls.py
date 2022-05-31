@@ -21,5 +21,5 @@ urlpatterns = [
     path('',econciencia_views.home,name="home"),
     path('posts/latest_posts/',posts_views.latest_posts,name="latest_posts"),
     path('recuperar_contrasena/', users_views.recuperar_contrasena, name="recuperar_contrasena"),
-
+    path('perfil/actualizar_perfil/', users_views.update_profile, name='actualizar_perfil'),
 ] + static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)

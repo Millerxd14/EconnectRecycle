@@ -9,7 +9,7 @@
     background-color: rgba(52, 152, 219, .88);
     border-color: rgba(52, 152, 219, .88)
 }
-
+.alert-notice,
 .alert-warning {
     color: #E9EDEF;
     background-color: rgba(243, 156, 18, .88);

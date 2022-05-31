@@ -25,7 +25,12 @@ def login_view(request):
         else:
             return render(request, 'users/login.html',
             {
-                "error": 'Error, usuario y contraseña invalidos',
+                'error': { 
+                    'tipo' : 'error',
+                    'titulo': 'Error',
+                    'texto': 'Usuario y contraseña invalidos',
+                    'tiempo': '2000'
+                    }
             })
 
     return render(request, 'users/login.html')
@@ -59,7 +64,12 @@ def singup(request):
             })
         if(user_type == '0'):
             return render(request,'users/singup.html',{
-                'error': 'Debes escoger un tipo de usuario valido'
+                'error': { 
+                    'tipo' :'error',
+                    'titulo':'Error',
+                    'texto':'Hola mundo',
+                    'tiempo':'3000',
+                    }
             })
         elif user_type == '1':
             is_productor_field = 1
@@ -88,4 +98,10 @@ def singup(request):
 def recuperar_contrasena(request):
     pass
 
+def update_profile(request):
+    profile = request.user.profile
 
+    return render(request, 'users/actualizar_perfil.html',{
+        'profile': profile,
+        'user': request.user
+    })
