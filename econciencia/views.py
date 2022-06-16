@@ -41,3 +41,6 @@ def registro(request):
 
 def mi_caneca(request):
     return render(request, 'mi_caneca.html')
+
+def entregas(request):
+    return render(request, 'entregas.html')

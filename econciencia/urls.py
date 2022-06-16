@@ -23,4 +23,5 @@ urlpatterns = [
     path('recuperar_contrasena/', users_views.recuperar_contrasena, name="recuperar_contrasena"),
     path('perfil/actualizar_perfil/', users_views.update_profile, name='actualizar_perfil'),
     path('mi_caneca/', econciencia_views.mi_caneca,name='mi_caneca' ),
+    path('entregas/',econciencia_views.entregas, name='entregas'),
 ] + static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
