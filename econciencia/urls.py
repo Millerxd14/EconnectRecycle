@@ -22,4 +22,5 @@ urlpatterns = [
     path('posts/latest_posts/',posts_views.latest_posts,name="latest_posts"),
     path('recuperar_contrasena/', users_views.recuperar_contrasena, name="recuperar_contrasena"),
     path('perfil/actualizar_perfil/', users_views.update_profile, name='actualizar_perfil'),
+    path('mi_caneca/', econciencia_views.mi_caneca,name='mi_caneca' ),
 ] + static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)

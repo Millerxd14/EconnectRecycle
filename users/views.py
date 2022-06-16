@@ -9,9 +9,16 @@ from django.contrib.auth.models  import User
 from users.models import Profile
 
 
+#froms 
+
+from users.forms import ProfileForm
+
 # except careverga
 from django.db.utils import IntegrityError
-# Create your views here.
+
+
+
+
 def login_view(request):
     '''Login view'''
     if request.method == 'POST':
@@ -100,8 +107,15 @@ def recuperar_contrasena(request):
 
 def update_profile(request):
     profile = request.user.profile
+    if request.method == 'POST':
+        form = ProfileForm(request.POST)
+        if form.is_valid():
+            print(form.cleaned_data)
+    else:
+        form = ProfileForm()
 
     return render(request, 'users/actualizar_perfil.html',{
         'profile': profile,
-        'user': request.user
+        'user': request.user,
+        'form': form
     })

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+    <div class="caneca">
+
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{block.super}}
+    <link rel="stylesheet" href="{% static 'css/caneca.css'%}">
+
+{% endblock%}

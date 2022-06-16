@@ -23,7 +23,7 @@ class Profile(models.Model):
     is_collector = models.BooleanField(default=True)
     is_productor = models.BooleanField(default=False)
 
-    dni = models.CharField(max_length=20,default='unamed')
+    dni = models.CharField(max_length=20)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now = True)
 

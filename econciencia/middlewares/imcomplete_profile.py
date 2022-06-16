@@ -3,7 +3,7 @@
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.template import loader, RequestContext
-
+from users.forms import ProfileForm
 
 class ProfileCompletionMiddleware:
     def __init__(self, get_response):
@@ -12,25 +12,19 @@ class ProfileCompletionMiddleware:
         # One-time configuration and initialization.
 
     def __call__(self, request):
-        '''mensaje_error = {
-                        'error': { 
-                            'tipo' : 'error',
-                            'titulo': 'Error',
-                            'texto': 'Hola mundo',
-                            'tiempo': '3000'
-                        }
-                    }
-        '''
         if( not request.user.is_anonymous):
             profile = request.user.profile
             if not profile.person_type:
                 if request.path not in [ reverse('actualizar_perfil'), reverse('logout')]:
+                    
                     return render(request, 'users/actualizar_perfil.html', {
+                        'profile': profile,
+                        'user': request.user,
                         'error': {
                             'tipo' :'notice',
                             'titulo':'Advertencia',
                             'texto':'Para poder continuar con la experiencia lo invitamos a completar su perfil',
-                            'tiempo':'60000',
+                            'tiempo':'5000',
                         }
                     })
         response = self.get_response(request)

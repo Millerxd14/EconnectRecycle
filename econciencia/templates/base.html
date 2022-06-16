@@ -64,25 +64,25 @@
                             <li class="nav-item">
                                 <button class="btn btn-primary   btn-sm text-nowrap boton_inicio" onclick="window.location.href='{% url 'singup' %}'">
                                     Registrarse 
-                                    
-
                                 </button>
                             </li>
                     
                         {% else %}
-                            <li class="nav-item">
-                                <a href="#">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                                     <svg class="bi login__icon" width="28" height="28" fill="currentColor">
                                         <use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#person-circle"/>
                                     </svg>
+                                    | @{{user.username}}
                                 </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{% url 'logout'%}">
-                                    <svg class="bi login__icon" width="28" height="28" fill="currentColor">
-                                        <use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#box-arrow-in-right"/>
-                                    </svg>
-                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{% url 'latest_posts'%}">¿Como reciclar?</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'logout'%}">
+                                        <svg class="bi login__icon" width="28" height="28" fill="currentColor">
+                                            <use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#box-arrow-in-right"/>
+                                        </svg> Cerrar sesión
+                                    </a></li>
+                                </ul>
                             </li>
                         {% endif %}
                     </ul>
@@ -102,7 +102,6 @@
     
 
     {% block stylesheets %}
-
     <style>
         .navbar-type{
             display: inline-block;

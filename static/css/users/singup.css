@@ -9,6 +9,7 @@
 	
 	body {
 		background: linear-gradient(60deg, #fff, #2FA4FF);
+		z-index: 2;
 	}
 
 	.container {
@@ -106,6 +107,7 @@
     justify-content: center;
 	background: linear-gradient(90deg, #2FA4FF, #0E185F);
 	box-shadow: 0px 0px 24px #020629;
+	z-index: 3;
   }
   .login__icon {
 		position: absolute;
@@ -144,10 +146,12 @@
 	}
 	.figuras{
 		position: absolute;
-		width: 300px;
+		top: 10px;
+		
+		min-width: 300px;
 		height: 400px;
-		transform: rotate(60deg);
 		background-color: white;
-		border-radius: 50px 50px 50px 50px;
-		z-index: 0;
+		transform: rotate(45deg);
+		border-radius: 50px 50px 50px 0px;
+		border-top: solid transparent 100px ;
 	}

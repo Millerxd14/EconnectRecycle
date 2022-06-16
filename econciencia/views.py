@@ -37,3 +37,7 @@ def registro(request):
     context = {'form': form}
     return render(request, 'register.html',context)
 
+
+
+def mi_caneca(request):
+    return render(request, 'mi_caneca.html')
