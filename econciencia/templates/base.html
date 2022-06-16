@@ -1,0 +1,206 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} Econciencia {% endblock %}</title>
+    {% load static %}
+    <link rel="icon" type="image/svg+xml" href="{% static 'css/icons/favicon.svg' %}">
+    <link href="{% static 'css/bootstrap/bootstrap.css' %}" rel="stylesheet"> 
+    
+    <!-- links estilos de notificaciones -->
+    <link href="{% static '/js/node_modules/@pnotify/core/dist/PNotify.css' %}" rel="stylesheet"> 
+    <link href="{% static '/js/node_modules/@pnotify/core/dist/BrightTheme.css' %}" rel="stylesheet"> 
+    <link href="{% static '/js/node_modules/@pnotify/bootstrap4/dist/PNotifyBootstrap4.css' %}" rel="stylesheet">
+    <link href="{% static 'css/custom.css' %}" rel="stylesheet"> 
+
+    
+</head>
+
+<body>
+        <div class="bg-light">
+            <nav class="navbar navbar-expand-md gradient_nav navbar-light border-1 border-bottom shadow p-3">
+                
+                <div class="container-fluid">
+                    <div>
+                        <a href="{% url 'home' %}" class="navbar-brand"> 
+                            <img src="{% static 'images/logo.png'%}" class="navbar-logo" >
+                        </a>
+                        <a href="{% url 'home' %}" class="navbar-brand"> 
+                            <img src="{% static 'images/type_logo.png'%}" class="navbar-type" >
+                        </a>
+                    </div>
+                    <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#MenuNavegacion">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+
+                <div id="MenuNavegacion" class="navbar-collapse collapse" >
+                    <ul class="navbar-nav ms-3">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{% url 'home' %}">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Recicla</a>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            Opciones de soporte
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{% url 'latest_posts'%}">Base de conocimientos</a></li>
+                                <li><a class="dropdown-item" href="#">Contacta con nosotros</a></li>
+                            </ul>
+                        </li>
+                        {% if not user.is_authenticated %}
+                            <li class="nav-item ml-3">
+                                <button class="btn btn-success   btn-sm text-nowrap boton_inicio" onclick="window.location.href='{% url 'login' %}'">
+                                    Iniciar sesión
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="btn btn-primary   btn-sm text-nowrap boton_inicio" onclick="window.location.href='{% url 'singup' %}'">
+                                    Registrarse 
+                                </button>
+                            </li>
+                    
+                        {% else %}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                    <svg class="bi login__icon" width="28" height="28" fill="currentColor">
+                                        <use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#person-circle"/>
+                                    </svg>
+                                    | @{{user.username}}
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{% url 'latest_posts'%}">¿Como reciclar?</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'logout'%}">
+                                        <svg class="bi login__icon" width="28" height="28" fill="currentColor">
+                                            <use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#box-arrow-in-right"/>
+                                        </svg> Cerrar sesión
+                                    </a></li>
+                                </ul>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </nav>
+
+            
+        
+        </div>
+
+
+    
+    {%block body%}
+            
+            
+    {% endblock %}
+    
+
+    {% block stylesheets %}
+    <style>
+        .navbar-type{
+            display: inline-block;
+            vertical-align: middle;
+            max-width: 300px;
+            
+        }
+        .navbar-logo{
+            display: inline-block;
+            vertical-align: middle;
+            width: 56px;
+        }
+        .boton_inicio{
+            max-width: 300px;
+            width: 125px;
+            margin-right: 5px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+        
+       
+        @media screen and (min-width: 768px) {
+            .navbar-type {
+                display: inline-block;
+                vertical-align: middle;
+                width: 100px;
+            }
+            .boton_inicio{
+                max-width: 100px;
+                width: 100px;
+                margin-right: 5px;
+                margin-top: 5px;
+                margin-bottom: 5px;
+            }
+        }
+        @media screen and (min-width: 1024px) {
+            .navbar-type {
+                display: inline-block;
+                vertical-align: middle;
+                width: 200px;
+            }
+            .boton_inicio{
+                max-width: 100px;
+                width: 100px;
+                margin-right: 5px;
+                margin-top: 5px;
+                margin-bottom: 5px;
+            }
+        }
+        @media screen and (min-width: 300px) {
+            .navbar-type {
+                display: inline-block;
+                vertical-align: middle;
+                width: 150px;
+            }
+            .boton_inicio{
+                max-width: 100px;
+                width: 100px;
+                margin-right: 5px;
+                margin-top: 5px;
+                margin-bottom: 5px;
+            }
+        }
+        .gradient_nav{
+            background: rgb(203,232,255);
+            background: linear-gradient(5deg, rgba(203,232,255,1) 0%, rgba(255,255,255,1) 30%, rgba(255,255,255,1) 50%, rgba(255,255,255,1) 70%, rgba(203,232,255,1) 100%);   
+        }
+        
+    </style>
+
+    {% endblock %}
+
+
+    {% block javascripts %}
+        <script src="{% static '/js/bootstrap/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static '/js/node_modules/@pnotify/core/dist/PNotify.js' %}" type="text/javascript"></script>
+        <script src="{% static '/js/node_modules/@pnotify/bootstrap4/dist/PNotifyBootstrap4.js' %}" type="text/javascript"></script>
+        <script src="{% static '/js/node_modules/@pnotify/glyphicon/dist/PNotifyGlyphicon.js' %}" type="text/javascript"></script>
+        <script>  
+            function send_notification(type,tittle,text,delay){
+                PNotify.defaultModules.set(PNotifyBootstrap4, {});
+                PNotify.defaultModules.set(PNotifyGlyphicon, {});
+                PNotify.alert({
+                    type: type,
+                    title: tittle,
+                    text: text,
+                    delay: delay
+                });
+            }
+        </script>    
+        {% if error %}
+            <script>
+                send_notification( '{{error.tipo}}','{{error.titulo}}','{{error.texto}}','{{error.tiempo}}')
+            </script>
+        {% endif %}
+    {% endblock %}
+    
+</body>
+</html>
+
+
+

@@ -25,18 +25,29 @@ SECRET_KEY = 'django-insecure-@1sbeny%n15i%7#p2a72p+k(igtd949602o1(w_+r^jrur_9w6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'miller.datawifi.co',
+    '127.0.0.1',
+    '192.168.0.13',
+    '192.168.0.11',
+]
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    #django apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    #Local apps
+    'users',
+    'posts',
+
 ]
 
 MIDDLEWARE = [
@@ -47,6 +58,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'econciencia.middlewares.imcomplete_profile.ProfileCompletionMiddleware'
+
 ]
 
 ROOT_URLCONF = 'econciencia.urls'
@@ -54,7 +67,7 @@ ROOT_URLCONF = 'econciencia.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'econciencia/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -116,10 +129,28 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
-
-STATIC_URL = '/static/'
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
+
+#static variables
+STATIC_URL = '/static/'
+STATICFILES_DIRS =(
+    BASE_DIR / 'static',
+)
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
+
+
+LOGIN_URL = '/login'
+
+
+#Media Files
+MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = '/media/'
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
