@@ -16,7 +16,7 @@ class ProfileCompletionMiddleware:
             profile = request.user.profile
             if not profile.person_type:
                 if request.path not in [ reverse('actualizar_perfil'), reverse('logout')]:
-                    
+                
                     return render(request, 'users/actualizar_perfil.html', {
                         'profile': profile,
                         'user': request.user,

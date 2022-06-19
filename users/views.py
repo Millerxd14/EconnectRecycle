@@ -108,9 +108,18 @@ def recuperar_contrasena(request):
 def update_profile(request):
     profile = request.user.profile
     if request.method == 'POST':
-        form = ProfileForm(request.POST)
+        form = ProfileForm(request.POST, request.FILES)
         if form.is_valid():
-            print(form.cleaned_data)
+            data = form.cleaned_data
+            profile.company_name = data['company_name']
+            profile.direction = data['direction']
+            profile.phone_number = data['phone_number']
+            profile.profile_picture = data['profile_picture']
+            profile.dni = data['dni']
+            profile.person_type = data['person_type']
+            profile.save()
+            return redirect( 'actualizar_perfil' )
+
     else:
         form = ProfileForm()
 

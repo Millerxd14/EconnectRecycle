@@ -77,10 +77,17 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="{% url 'latest_posts'%}">¿Como reciclar?</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'actualizar_perfil'%}">
+                                        Configuración
+                                        <svg class="bi login__icon" width="16" height="16" fill="currentColor">
+                                            <use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#gear"/>
+                                        </svg>
+                                    </a></li>
                                     <li><a class="dropdown-item" href="{% url 'logout'%}">
-                                        <svg class="bi login__icon" width="28" height="28" fill="currentColor">
+                                        Cerrar sesión
+                                        <svg class="bi login__icon" width="16" height="16" fill="currentColor">
                                             <use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#box-arrow-in-right"/>
-                                        </svg> Cerrar sesión
+                                        </svg>
                                     </a></li>
                                 </ul>
                             </li>
