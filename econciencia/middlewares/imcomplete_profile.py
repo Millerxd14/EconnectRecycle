@@ -15,7 +15,7 @@ class ProfileCompletionMiddleware:
         if( not request.user.is_anonymous):
             profile = request.user.profile
             if not profile.person_type:
-                if request.path not in [ reverse('actualizar_perfil'), reverse('logout')]:
+                if request.path not in [ reverse('users:actualizar_perfil'), reverse('users:logout')]:
                 
                     return render(request, 'users/actualizar_perfil.html', {
                         'profile': profile,

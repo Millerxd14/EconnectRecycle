@@ -3,7 +3,7 @@
     {%load static%}
     <div class="d-flex justify-content-center align-items-center mt-5">
         <div class="form d-flex justify-content-center contenedor_form">
-            <form action="{% url 'actualizar_perfil' %}" method="post" enctype="multipart/form-data"> 
+            <form action="{% url 'users:actualizar_perfil' %}" method="post" enctype="multipart/form-data"> 
                 {% csrf_token %}
                 {% if form.errors %}
                     <p class="alert alert-danger">{{ form.errors}}</p>
@@ -55,6 +55,7 @@
             </form>
         </div>
     </div>
+
 {% endblock %}
 {% block stylesheets %}
 {{block.super}}
@@ -82,4 +83,17 @@
 {% endblock %}
 {% block javascripts %}
  {{block.super}}
+    {% if form.errors %}
+    {{ form.errors|json_script:"errores" }}
+        <script>
+            var errores = JSON.parse(document.getElementById('errores').textContent);
+           
+            var consolidado = "";
+            for (const error in errores) {
+                
+                consolidado += `${error}:\n\t ${errores[error]}\n`;
+            }
+            send_notification( 'error','Error',consolidado,'3000')
+    </script>
+    {% endif %}
 {% endblock %}
