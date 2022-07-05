@@ -1,15 +1,15 @@
-/__pycache__
-econciencia/__pycache__
-econciencia/middlewares/__pycache__
 
-users/__pycache__
-users/migrations
+econciencia/__pycache__/
+econciencia/middlewares/__pycache__/
 
-
-posts/__pycache__
-posts/migrations
+users/__pycache__/
+users/migrations/
 
 
-canecas/__pycache__
-canecas/migrations
-canecas/script_ia/__pychache__
+posts/__pycache__/
+posts/migrations/__pycache__/
+
+
+canecas/__pycache__/
+canecas/migrations/
+canecas/script_ia/__pychache__/
