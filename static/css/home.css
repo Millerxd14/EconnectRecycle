@@ -1,0 +1,134 @@
+main {
+    font-size: 14px;
+    color:#000;
+    margin: 0;
+    padding: 0;
+  }
+
+  .swiper-slide {
+    background-position: center;
+    background-size: cover;
+    width: 25rem;
+    height: 18rem;
+  }
+  .swiper-container {
+    width: 100%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    overflow-x: hidden;
+  }
+
+  .titulo{
+    width: 100%;
+    height: 95;
+    text-align: center;
+    background-color: #14C38E;
+  }
+
+  h1{
+    color: white;
+    font-family: 'Raleway';
+  }
+
+  .econciencia{
+    margin: 20px;
+  }  
+
+  .imagen, .texto{
+    display: inline-block;
+  }
+
+  .imagen{
+    width: 550px;
+    height: 550px;
+    margin: 5px;
+  }
+
+  p{
+    font-family: 'Raleway';
+    font-size: 20px;
+    font-weight: 250px;
+  }
+
+
+  @media screen and (max-width: 950px) {
+    .imagen{
+      width: 420px;
+      height: 420px;
+      margin: 2px;
+    } 
+    p{
+      font-family: 'Raleway';
+      font-size: 18px;
+    }
+  }
+  
+  @media screen and (max-width: 800px) {
+    .imagen{
+      width: 380px;
+      height: 380px;
+      margin: 0px;
+    } 
+    p{
+      font-family: 'Raleway';
+      font-size: 14px;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    h1{
+      color: white;
+      font-family: 'Raleway';
+      font-weight: 400;
+    }
+    .econciencia{
+      margin: 10px;
+    }  
+    .imagen{
+      text-align: center;
+      width: 380px;
+      height: 380px;
+    } 
+    p{
+      font-family: 'Raleway';
+      font-size: 18px;
+      font-weight: 300;
+    }
+  }
+
+
+  p#uno {
+    white-space: normal;
+    color: #000;
+    text-align-last: center;
+  }
+  p#dos {
+    white-space: normal;
+    color: #14C38E;
+  }
+  p#tres {
+    white-space: normal;
+    color: #FF641F;
+  }
+  p#cuatro {
+    white-space: normal;
+    color: #0E185F;
+  }
+
+  @media screen and (min-width: 700px) { 
+    .swiper-slide {
+        background-position: center;
+        background-size: cover;
+        width: 35rem;
+        height: 28rem;
+      }
+  }
+  @media screen and (min-width: 950px) { 
+    .swiper-slide {
+        background-position: center;
+        background-size: cover;
+        width: 50rem;
+        height: 40rem;
+      }
+  }
+  

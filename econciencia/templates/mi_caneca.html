@@ -1,13 +1,80 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block body %}
-    <div class="caneca">
-
+<div class="d-flex justify-content-center row completo">
+    <div class=" col-md-6  caneca text-center" >
+        <div class="circulo">
+            <div class="circuloInterno">
+                <div class="sombra">
+                </div>
+            </div>
+        </div>
+        <div class="rectangulo">
+        </div>
+        <div class="cuadrado">
+            <div class="cuadradoInterno">
+                <center><h3>No Hay <br>
+                    EXCUSAS<br>
+                    Aprendamos <br>
+                    a <br>
+                    Reciclar </h3></center>
+            </div>
+        </div>
     </div>
+    <div class="col-md-6 d-flex flex-md-column flex-sm-column justify-content-md-center justify-content-sm-center estadisticas">
+        <button type="button" class="mb-auto p-2 align-self-center botonmodal" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Agregar Caneca
+        </button>
+        <div class=" mb-auto p-2 align-self-center estado">
+            <div class="triangulo"></div>
+            <div class="triangulo1"></div>
+        </div>
+        <div class="mb-auto p-2 align-self-center grafica"></div>
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class=" modal-header">
+                    <h5 class="col-md-10 text-center modal-title " id="exampleModalLabel">Agrega tu Caneca</h5>
+                    <button type="button" class="btn-close  btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Usuario:</label>
+                            {{ request.user.username}}
+                        </div>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Nombre:</label>
+                            {{ request.user.get_full_name}}
+                        </div>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">MAC:</label>
+                            <input type="text" class="form-control" id="recipient-name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Código:</label>
+                            <input type="text" class="form-control" id="recipient-name">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Enviar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>    
 {% endblock %}
 
 {% block stylesheets %}
     {{block.super}}
     <link rel="stylesheet" href="{% static 'css/caneca.css'%}">
 
+{% endblock%}
+
+{% block javascripts %}
+    {{block.super}}
+    <script src="{% static 'js/caneca.js'%}"></script>
 {% endblock%}
