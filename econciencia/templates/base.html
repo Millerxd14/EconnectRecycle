@@ -52,18 +52,18 @@
                             Opciones de soporte
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{% url 'latest_posts'%}">Base de conocimientos</a></li>
+                                <li><a class="dropdown-item" href="{% url 'posts:latest_posts'%}">Base de conocimientos</a></li>
                                 <li><a class="dropdown-item" href="#">Contacta con nosotros</a></li>
                             </ul>
                         </li>
                         {% if not user.is_authenticated %}
                             <li class="nav-item ml-3">
-                                <button class="btn btn-success   btn-sm text-nowrap boton_inicio" onclick="window.location.href='{% url 'login' %}'">
+                                <button class="btn btn-success   btn-sm text-nowrap boton_inicio" onclick="window.location.href='{% url 'users:login' %}'">
                                     Iniciar sesión
                                 </button>
                             </li>
                             <li class="nav-item">
-                                <button class="btn btn-primary   btn-sm text-nowrap boton_inicio" onclick="window.location.href='{% url 'singup' %}'">
+                                <button class="btn btn-primary   btn-sm text-nowrap boton_inicio" onclick="window.location.href='{% url 'users:singup' %}'">
                                     Registrarse 
                                 </button>
                             </li>
@@ -77,11 +77,18 @@
                                     | @{{user.username}}
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="{% url 'latest_posts'%}">¿Como reciclar?</a></li>
-                                    <li><a class="dropdown-item" href="{% url 'logout'%}">
-                                        <svg class="bi login__icon" width="28" height="28" fill="currentColor">
+                                    <li><a class="dropdown-item" href="{% url 'posts:latest_posts'%}">¿Como reciclar?</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'users:actualizar_perfil'%}">
+                                        Configuración
+                                        <svg class="bi login__icon" width="16" height="16" fill="currentColor">
+                                            <use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#gear"/>
+                                        </svg>
+                                    </a></li>
+                                    <li><a class="dropdown-item" href="{% url 'users:logout'%}">
+                                        Cerrar sesión
+                                        <svg class="bi login__icon" width="16" height="16" fill="currentColor">
                                             <use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#box-arrow-in-right"/>
-                                        </svg> Cerrar sesión
+                                        </svg>
                                     </a></li>
                                 </ul>
                             </li>
@@ -90,14 +97,15 @@
                 </div>
             </nav>
         </div>
-
     </header>
+
     <main>
-        {% block body %}
-            
-            
+        {%block body%}
+                
+                
         {% endblock %}
     </main>
+
     <footer>
 
     </footer>

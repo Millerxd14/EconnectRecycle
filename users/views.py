@@ -3,15 +3,9 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
 
-#models
+#forms 
 
-from django.contrib.auth.models  import User
-from users.models import Profile
-
-
-#froms 
-
-from users.forms import ProfileForm
+from users.forms import ProfileForm, SingUpForm
 
 # except careverga
 from django.db.utils import IntegrityError
@@ -28,7 +22,7 @@ def login_view(request):
         user = authenticate(request,username=username, password= password)
         if user:
             login(request,user)
-            return redirect('latest_posts')
+            return redirect('posts:latest_posts')
         else:
             return render(request, 'users/login.html',
             {
@@ -47,59 +41,22 @@ def login_view(request):
 def logout_view(request):
     '''logout user'''
     logout(request)
-    return redirect('login')
+    return redirect('users:login')
 
 def singup(request):
     '''sing up view'''
     
     if(request.method == "POST"):
-        password = request.POST['password'] 
-        confirm_password = request.POST['confirm_password']        
-        first_name = request.POST['first_name']  
-        last_name = request.POST['last_name']        
-        email = request.POST['email']        
-        user_type = request.POST['user_type'] 
-        print
-        # Tocó en español porque en ingles la muy zorra no sirve
-        usuario = request.POST['usuario']
-        #import pdb;pdb.set_trace()
-               
-         
-        if(password != confirm_password):
-            return render(request,'users/singup.html',{
-                'error': 'Las contraseñas no coinciden'
-            })
-        if(user_type == '0'):
-            return render(request,'users/singup.html',{
-                'error': { 
-                    'tipo' :'error',
-                    'titulo':'Error',
-                    'texto':'Hola mundo',
-                    'tiempo':'3000',
-                    }
-            })
-        elif user_type == '1':
-            is_productor_field = 1
-            is_collector_field = 0
-        elif user_type == '2':
-            is_productor_field = 0
-            is_collector_field = 1
-        try:
-            user = User.objects.create_user(username = usuario,email = email,password = password)
-        except IntegrityError:
-            return render(request,'users/singup.html',{
-                'error': 'El usuario que escogiste ya está en uso'
-            })
-        user.first_name = first_name
-        user.last_name = last_name
-        
-        user.save()
-        profile = Profile(user = user, is_productor = is_productor_field, is_collector = is_collector_field )
-        profile.save()
-        return render(request,'users/login.html')
+        form = SingUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('users:login')
+    else: 
+        form = SingUpForm()
 
-
-    return render(request,'users/singup.html')
+    return render(request,'users/singup.html',{
+        'form':form
+    })
 
 
 def recuperar_contrasena(request):
@@ -108,9 +65,18 @@ def recuperar_contrasena(request):
 def update_profile(request):
     profile = request.user.profile
     if request.method == 'POST':
-        form = ProfileForm(request.POST)
+        form = ProfileForm(request.POST, request.FILES)
         if form.is_valid():
-            print(form.cleaned_data)
+            data = form.cleaned_data
+            profile.company_name = data['company_name']
+            profile.direction = data['direction']
+            profile.phone_number = data['phone_number']
+            profile.profile_picture = data['profile_picture']
+            profile.dni = data['dni']
+            profile.person_type = data['person_type']
+            profile.save()
+            return redirect( 'users:actualizar_perfil' )
+
     else:
         form = ProfileForm()
 
