@@ -1,3 +1,7 @@
 /__pycache__
 posts/__pycache__
 users/__pycache__
+users/migrations
+canecas/__pycache__
+econciencia/__pycache__
+econciencia/middlewares/__pycache__
