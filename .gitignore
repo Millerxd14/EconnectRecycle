@@ -7,12 +7,16 @@ middlewares/__pycache__/*
 
 users/__pycache__/*
 users/migrations/*
-
+users/migrations/__pycache__/*
 
 posts/__pycache__/*
 posts/migrations/*
-
+posts/migrations/__pycache__/*
 
 canecas/__pycache__/*
 canecas/migrations/*
+canecas/migrations/__pycache__/*
+
+
+
 canecas/script_ia/__pycache__/*
