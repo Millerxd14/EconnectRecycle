@@ -59,7 +59,7 @@ model = ResNet()
 
 #print(model)
 
-dir_model = "C:/Users/User/Downloads/MillerPro/UECCI/proyectoIngenieria/proyecto_ia/modeloprueba08052022.pth"
+dir_model = "C:/Users/dvale/Downloads/Miller/modelo/modeloprueba08052022.pth"
 model.load_state_dict(torch.load(dir_model, map_location='cpu'))
 model.eval()
 
