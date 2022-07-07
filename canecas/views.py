@@ -113,7 +113,10 @@ class CanecaApiView(viewsets.ModelViewSet):
     
 
 def mi_caneca(request):
-    return render(request, 'mi_caneca.html')
+    return render(request, 'canecas/mi_caneca.html')
 
 def entregas(request):
-    return render(request, 'entregas.html')
+    return render(request, 'canecas/entregas.html')
+
+def consultar_canecas(request, id):
+    return render(request, 'canecas/consultas.html')

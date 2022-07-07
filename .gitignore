@@ -1,21 +1,21 @@
 *.pyc
-econciencia/__pycache__
-econciencia/middlewares/__pycache__
+econciencia/_pycache_
+econciencia/middlewares/_pycache_
 
-econciencia/__pycache__/*
-middlewares/__pycache__/*
+econciencia/_pycache_/*
+middlewares/_pycache_/*
 
-users/__pycache__/*
+users/_pycache_/*
 users/migrations/*
-users/migrations/__pycache__/*
+users/migrations/_pycache_/*
 
-posts/__pycache__/*
+posts/_pycache_/*
 posts/migrations/*
-posts/migrations/__pycache__/*
+posts/migrations/_pycache_/*
 
-canecas/__pycache__/*
+canecas/_pycache_/*
 canecas/migrations/*
-canecas/migrations/__pycache__/*
+canecas/migrations/_pycache_/*
 
 
-canecas/script_ia/__pycache__/*
+canecas/script_ia/_pycache_/*
