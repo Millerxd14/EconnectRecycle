@@ -23,5 +23,5 @@ urlpatterns = [
     
     path('mi_caneca/', views.mi_caneca,name='mi_caneca' ),
     path('entregas/',views.entregas, name='entregas'),
-
+    path('consultas/<int:id>/',views.consultar_canecas, name='consultar_caneca'),
 ]
