@@ -19,7 +19,6 @@ router.register(r'canecas_api', views.CanecaApiView,basename='canecas_api')
 urlpatterns = [
     path('', include(router.urls)),
     path('<int:pk>/', include(router.urls)),
-    #path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     
     path('mi_caneca/', views.mi_caneca,name='mi_caneca' ),
     path('entregas/',views.entregas, name='entregas'),

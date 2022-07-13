@@ -19,8 +19,8 @@ dir_completa = os.path.join(base, "canecas/script_ia/", "modeloprueba08052022.pt
 
 dir_completa = dir_completa.replace('\\', '/')
 
-print("This file path, relative to os.getcwd()")
-print(dir_completa + "\n")
+#print("This file path, relative to os.getcwd()")
+#print(dir_completa + "\n")
 #
 def accuracy(outputs, labels):
     _, preds = torch.max(outputs, dim=1)

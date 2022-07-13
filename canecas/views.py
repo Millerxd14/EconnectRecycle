@@ -127,7 +127,16 @@ class CanecaApiView(viewsets.ModelViewSet):
     
 
 def mi_caneca(request):
-    return render(request, 'canecas/mi_caneca.html')
+    if request.method == 'POST':
+        form = CreateCaneca(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('canecas:consultar_caneca',id=1)
+    else:
+        form = CreateCaneca()
+    return render(request, 'canecas/mi_caneca.html',{
+        'form': form
+    })
 
 def entregas(request):
     return render(request, 'canecas/entregas.html')

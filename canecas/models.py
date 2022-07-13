@@ -9,7 +9,7 @@ class Caneca(models.Model):
     description = models.CharField(max_length=255)
     mac = models.CharField(max_length=15)
 
-    user = models.OneToOneField(User, on_delete = models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     
     latitud = models.CharField(max_length=200)
     longitud = models.CharField(max_length=200)
