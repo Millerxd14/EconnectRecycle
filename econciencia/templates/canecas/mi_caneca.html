@@ -40,30 +40,39 @@
                     <h5 class="col-md-10 text-center modal-title " id="exampleModalLabel">Agrega tu Caneca</h5>
                     <button type="button" class="btn-close  btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <form>
+                <form>
+                    {% csrf_token %}
+                    <div class="modal-body">
                         <div class="mb-3">
                             <label for="recipient-name" class="col-form-label">Usuario:</label>
                             {{ request.user.username}}
                         </div>
                         <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">Nombre:</label>
-                            {{ request.user.get_full_name}}
+                            <label for="name" class="col-form-label">Nombre:</label>
+                            <input type="text" class="form-control" name="name" id="name" placeholder="Nombre caneca">
                         </div>
                         <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">MAC:</label>
-                            <input type="text" class="form-control" id="recipient-name">
+                            <label for="description" class="col-form-label">Descripción:</label>
+                            <input type="text" class="form-control" name="description" id="description" placeholder="Descripción caneca">
                         </div>
                         <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">Código:</label>
-                            <input type="text" class="form-control" id="recipient-name">
+                            <label for="mac" class="col-form-label">MAC:</label>
+                            <input type="text" class="form-control" id="mac" placeholder="Mac de la caneca">
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Enviar</button>
-                </div>
+                        <div class="mb-3">
+                            <label for="codigo" class="col-form-label">Código:</label>
+                            <input type="text" class="form-control" id="codigo" placeholder="Lo encontrarás en la caneca">
+                        </div>
+                        <div class="mb-3">
+                            <label for="ubicacion" class="col-form-label">Ubicación:</label>
+                            <input type="text" class="form-control" id="ubicacion" placeholder="Dirección Caneca">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Enviar</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
