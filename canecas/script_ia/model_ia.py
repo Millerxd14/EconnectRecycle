@@ -5,13 +5,22 @@ import torchvision.models as models
 import torch.nn as nn
 import torch.nn.functional as F
 import torchvision.transforms as transforms
-
+import os
 ##other libraries
 
 import matplotlib.pyplot as plt
 from PIL import Image
 from pathlib import Path
 
+
+base = os.getcwd()
+dir_completa = os.path.join(base, "canecas/script_ia/", "modeloprueba08052022.pth")
+
+
+dir_completa = dir_completa.replace('\\', '/')
+
+#print("This file path, relative to os.getcwd()")
+#print(dir_completa + "\n")
 #
 def accuracy(outputs, labels):
     _, preds = torch.max(outputs, dim=1)
@@ -59,7 +68,7 @@ model = ResNet()
 
 #print(model)
 
-dir_model = "C:/Users/User/Downloads/MillerPro/UECCI/proyectoIngenieria/proyecto_ia/modeloprueba08052022.pth"
+dir_model = dir_completa
 model.load_state_dict(torch.load(dir_model, map_location='cpu'))
 model.eval()
 

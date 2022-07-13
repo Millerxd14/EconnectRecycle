@@ -1,14 +1,28 @@
+
+#django
 from django.shortcuts import get_object_or_404, render, redirect
+
+
+#Api libraries
 from rest_framework.response import Response
 from rest_framework import status
-from canecas.models import Caneca
 from rest_framework import viewsets
 from rest_framework import permissions
 from rest_framework.decorators import action
 from canecas.serializers import CanecaSerializer
+
+
+
+#models
+
+from canecas.models import Caneca
+from canecas.forms import CreateCaneca
 from canecas.script_ia import model_ia
+
+#Otras librerias
 import numpy as np
 from PIL import Image
+
 
 
 class CanecaApiView(viewsets.ModelViewSet):
@@ -113,7 +127,23 @@ class CanecaApiView(viewsets.ModelViewSet):
     
 
 def mi_caneca(request):
-    return render(request, 'mi_caneca.html')
+    if request.method == 'POST':
+        form = CreateCaneca(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('canecas:consultar_caneca',id=1)
+    else:
+        form = CreateCaneca()
+    return render(request, 'canecas/mi_caneca.html',{
+        'form': form
+    })
 
 def entregas(request):
-    return render(request, 'entregas.html')
+    return render(request, 'canecas/entregas.html')
+
+def consultar_canecas(request, id):
+    #user = request.user
+    canecas_user = Caneca.objects.all()
+    return render(request, 'canecas/consultas.html',{
+        'canecas': canecas_user
+    })

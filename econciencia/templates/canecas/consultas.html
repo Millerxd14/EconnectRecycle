@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+<div class="m-5 d-flex justify-content-center row completo">
+        <table class="table caption-top table-bordered table-responsive" id="example" >
+            <caption>Lista de Canecas</caption>
+            <thead class="table-success">
+                <tr>
+                    Econciencia 
+                </tr>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">MAC</th>
+                    <th scope="col">Código</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for caneca in canecas %}
+                <tr>
+                    <td>{{caneca.id}}</td>
+                    <td>{{caneca.name}}</td>
+                    <td>{{caneca.mac}}</td>
+                    <td>{{caneca.ubicacion}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+</div>    
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{block.super}}
+    <link rel="stylesheet" href="{% static 'css/caneca.css'%}">
+
+{% endblock%}
+
+{% block javascripts %}
+    {{block.super}}
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="{% static 'js/caneca.js'%}"></script>
+{% endblock%}

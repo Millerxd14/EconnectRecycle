@@ -1,15 +1,27 @@
-/__pycache__
+*.pyc
 econciencia/__pycache__
 econciencia/middlewares/__pycache__
 
-users/__pycache__
-users/migrations
+econciencia/__pycache__/*
+middlewares/__pycache__/*
+
+users/__pycache__/*
+users/migrations/*
+users/migrations/__pycache__/*
+
+posts/__pycache__/*
+posts/migrations/*
+posts/migrations/__pycache__/*
+
+canecas/__pycache__/*
+canecas/migrations/*
+canecas/migrations/__pycache__/*
 
 
-posts/__pycache__
-posts/migrations
-
-
-canecas/__pycache__
-canecas/migrations
-canecas/script_ia/__pychache__
+canecas/script_ia/__pycache__/*
+#
+*.log
+*.pot
+*.pyc
+__pycache__
+media
