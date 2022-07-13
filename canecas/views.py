@@ -133,4 +133,8 @@ def entregas(request):
     return render(request, 'canecas/entregas.html')
 
 def consultar_canecas(request, id):
-    return render(request, 'canecas/consultas.html')
+    #user = request.user
+    canecas_user = Caneca.objects.all()
+    return render(request, 'canecas/consultas.html',{
+        'canecas': canecas_user
+    })
