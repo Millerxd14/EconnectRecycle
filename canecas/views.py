@@ -142,8 +142,16 @@ def entregas(request):
     return render(request, 'canecas/entregas.html')
 
 def consultar_canecas(request, id):
+    if request.method == 'POST':
+        form = CreateCaneca(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('canecas:consultar_caneca',id=1)
+    else:
+        form = CreateCaneca()
     #user = request.user
     canecas_user = Caneca.objects.all()
     return render(request, 'canecas/consultas.html',{
-        'canecas': canecas_user
+        'canecas': canecas_user,
+        'form': form
     })
