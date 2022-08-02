@@ -12,18 +12,17 @@
         <div class="rectangulo">
         </div>
         <div class="cuadrado">
-            <div class="cuadradoInterno">
-                <center><h3>No Hay <br>
-                    EXCUSAS<br>
-                    Aprendamos <br>
-                    a <br>
-                    Reciclar </h3></center>
+            <div class="cuadradoInterno text-left">
+                <h3>
+                    <p>{{caneca.name}}</p>
+                    <p>{{caneca.description}}</p>
+                </h3>
             </div>
         </div>
     </div>
     <div class="col-6 d-flex flex-column justify-content-center align-items-center estadisticas">
         <button type="button" class="mb-5 align-self-center botonmodal" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Agregar Caneca
+            Buscar Caneca
         </button>
         <div class=" mb-5 p-2 align-self-center estado">
             <div class="triangulo"></div>
@@ -40,7 +39,7 @@
                     <h5 class="col-md-10 text-center modal-title " id="exampleModalLabel">Agrega tu Caneca</h5>
                     <button type="button" class="btn-close  btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form method="post" action="{% url 'canecas:mi_caneca' %}">
+                <form method="post" action="{% url 'canecas:consultas' %}">
                     {% csrf_token %}
                     <div class="modal-body">
                         <div class="mb-3">
@@ -92,9 +91,15 @@
                 consolidado += `${error}:\n\t ${errores[error]}\n`;
             }
             send_notification( 'error','Error',consolidado,'3000')
+            
         </script>
     {% endif %}
+    <script>
+        _values = {{data|safe}};
+    </script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
+    <script src="https://code.highcharts.com/modules/drilldown.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>

@@ -31,8 +31,6 @@ urlpatterns = [
     path('caneca/',include(('canecas.urls', 'canecas'), namespace='canecas' )),
 
 
-    path('fecha/', econciencia_views.dame_la_fecha_puto),
-    path('datos_en_url/<int:edad>/<int:anio>', econciencia_views.recibirParametrosDeUrl, name='datos_url'),
     path('',econciencia_views.home,name="home"),
 
 
