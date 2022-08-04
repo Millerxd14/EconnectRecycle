@@ -11,27 +11,27 @@ from users import views
 
 urlpatterns = [
     path(
-        route ='users/login/',
+        route ='login/',
         view = views.login_view, 
         name="login"
     ),
     path(
-        route ='users/logout/',
+        route ='logout/',
         view = views.logout_view, 
         name="logout"
     ),
     path(
-        route ='users/singup/',
+        route ='singup/',
         view =views.singup, 
         name='singup'
     ),
     path(
-        route ='users/recuperar_contrasena/',
+        route ='recuperar_contrasena/',
         view = views.recuperar_contrasena, 
         name="recuperar_contrasena"
     ),
     path(
-        route ='users/perfil/actualizar_perfil/',
+        route ='perfil/actualizar_perfil/',
         view = views.update_profile, 
         name='actualizar_perfil'
     ),

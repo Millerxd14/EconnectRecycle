@@ -155,7 +155,7 @@ STATICFILES_FINDERS = [
 ]
 
 
-LOGIN_URL = '/login'
+LOGIN_URL = '/users/login/'
 
 
 #Media Files

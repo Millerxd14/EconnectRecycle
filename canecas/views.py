@@ -1,6 +1,7 @@
 
 #django
 from django.shortcuts import get_object_or_404, render, redirect
+from django.contrib.auth.decorators import login_required
 
 
 #Api libraries
@@ -75,7 +76,7 @@ class CanecaApiView(viewsets.ModelViewSet):
 
     def retrieve(self, request, pk=None):
         user = request.user
-        queryset = Caneca.objects.filter(user = user)
+        queryset = Caneca.objects.filter(user = user)#3,54,5,3
         caneca = get_object_or_404(queryset, pk=pk)
         serializer = CanecaSerializer(caneca)
         return Response(serializer.data)
@@ -106,15 +107,24 @@ class CanecaApiView(viewsets.ModelViewSet):
     def update(self, request, pk=None):
         user = request.user
         canecas_user = Caneca.objects.filter(user = user)
-        
-        caneca = Caneca.objects.get(pk=pk)
-        if( caneca in canecas_user ):
-            serializer = CanecaSerializer(caneca, data = request.data, partial =True)
-            if(serializer.is_valid()):
-                serializer.save()
-                return Response(serializer.data)
-            return Response(serializer.errors,status= status.HTTP_400_BAD_REQUEST)
-        else:
+        caneca = Caneca()
+        try:
+            caneca = Caneca.objects.get(pk=pk)
+            if( caneca in canecas_user ):
+                serializer = CanecaSerializer(caneca, data = request.data, partial =True)
+                if(serializer.is_valid()):
+                    serializer.save()
+                    return Response(serializer.data)
+                return Response(serializer.errors,status= status.HTTP_400_BAD_REQUEST)
+            else:
+                return Response(
+                    {
+                        'status': '400',
+                        'message': 'Invalid Caneca id'
+                    },
+                    status=status.HTTP_400_BAD_REQUEST
+            )
+        except:
             return Response(
                 {
                     'status': '400',
@@ -124,9 +134,9 @@ class CanecaApiView(viewsets.ModelViewSet):
             )
     
     
-    
-
-def mi_caneca(request):
+@login_required
+def mi_caneca(request,id):
+    caneca = Caneca.objects.get(id=id)
     if request.method == 'POST':
         form = CreateCaneca(request.POST)
         if form.is_valid():
@@ -134,25 +144,56 @@ def mi_caneca(request):
             return redirect('canecas:consultar_caneca',id=1)
     else:
         form = CreateCaneca()
+
+
+    #import pdb;pdb.set_trace()
+    data = []
+    
+    
+    
+    
+    data.insert(0,caneca.trash)
+    data.insert(0,caneca.cardboard)
+    data.insert(0,caneca.glass)
+    data.insert(0,caneca.metal)
+    data.insert(0,caneca.paper)
+    data.insert(0,caneca.plastic)
+
+    
+
     return render(request, 'canecas/mi_caneca.html',{
-        'form': form
+        'form': form,
+        'caneca': caneca,
+        'data': data
     })
 
-def entregas(request):
-    return render(request, 'canecas/entregas.html')
 
-def consultar_canecas(request, id):
+@login_required
+def entregas(request):
+    profile = request.user.profile
+    context = {
+        'profile': profile
+    }
+    return render(request, 'canecas/entregas.html',context)
+
+
+@login_required
+def consultar_canecas(request):
+    profile = request.user.profile
+    
     if request.method == 'POST':
         form = CreateCaneca(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('canecas:consultar_caneca',id=1)
+            return redirect('canecas:consultar_canecas')
     else:
         form = CreateCaneca()
     #user = request.user
     canecas_user = Caneca.objects.all()
-    return render(request, 'canecas/consultas.html',{
+    
+    context = {
+        'profile': profile,
         'canecas': canecas_user,
         'form': form
-    })
-
+    }
+    return render(request, 'canecas/consultas.html',context)

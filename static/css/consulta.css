@@ -1,4 +1,5 @@
 .btn-primary{
+    width: 220px;
     background-color: #FF641F;
     border-color:#FF641F ;
 }
@@ -82,4 +83,7 @@ h5{
     font-family:'Raleway' ;
     font-weight: bolder;
     font-size: 25px;
+}
+.texto_derecha{
+    text-align: right;
 }

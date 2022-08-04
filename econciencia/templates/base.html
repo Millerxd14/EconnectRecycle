@@ -46,18 +46,10 @@
                             <a class="nav-link active" href="{% url 'home' %}">Inicio</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Recicla</a>
+                            <a class="nav-link" href="{% url 'posts:latest_posts'%}">Recicla</a>
                         </li>
 
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                            Opciones de soporte
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{% url 'posts:latest_posts'%}">Base de conocimientos</a></li>
-                                <li><a class="dropdown-item" href="#">Contacta con nosotros</a></li>
-                            </ul>
-                        </li>
+                        
                         {% if not user.is_authenticated %}
                             <li class="nav-item ml-3">
                                 <button class="btn btn-success   btn-sm text-nowrap boton_inicio" onclick="window.location.href='{% url 'users:login' %}'">
@@ -71,14 +63,73 @@
                             </li>
                     
                         {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'canecas:consultas'%}">Caneca</a>
+                            </li>
+                            </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                                    <svg class="bi login__icon" width="28" height="28" fill="currentColor">
-                                        <use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#person-circle"/>
+                                <a class="nav-link " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <svg class="bi login__icon" width="22" height="22" fill="currentColor">
+                                        <use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#bell-fill"/>
                                     </svg>
-                                    | @{{user.username}}
                                 </a>
-                                <ul class="dropdown-menu">
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li>
+                                        <a class="dropdown-item" href="{% url 'canecas:consultas'%}">
+                                           <div class="container row notifications">
+                                            <div class="col-md-2">
+                                                <svg class="bi login__icon" width="50" height="50" fill="currentColor">
+                                                    <use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#person-circle"/>
+                                                </svg>
+                                            </div>
+                                            <div class="col">
+                                                <p>Hay una persona cerca con n kg de cocaina pura y dura mamabicho</p>
+                                                <p class="tiempo_notificaciones">hace una semana</p>
+                                            </div>
+                                            
+                                           </div>
+                                            
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a class="dropdown-item" href="{% url 'canecas:consultas'%}">
+                                           <div class="container row notifications">
+                                            <div class="col-md-2">
+                                                <svg class="bi login__icon" width="50" height="50" fill="currentColor">
+                                                    <use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#person-circle"/>
+                                                </svg>
+                                            </div>
+                                            <div class="col">
+                                                Hola mundo
+                                                <p class="tiempo_notificaciones">hace una semana</p>
+                                            </div>
+                                            
+                                           </div>
+                                            
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <div class="container ver_todas">
+                                            <a href=""> Ver todas... </a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    {% if user.profile_picture != '' %}
+                                        <img class="profile_img" src="{{ profile.profile_picture.url }}" alt="user_image" width="28" height="28">
+                                    {% else %}
+                                        <svg class="bi login__icon" width="28" height="28" fill="currentColor">
+                                            <use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#person-circle"/>
+                                        </svg>
+                                    {% endif %}
+                                    
+                                     {{user.username}}
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end">
                                     <li><a class="dropdown-item" href="{% url 'posts:latest_posts'%}">¿Como reciclar?</a></li>
                                     <li><a class="dropdown-item" href="{% url 'users:actualizar_perfil'%}">
                                         Configuración
@@ -92,6 +143,7 @@
                                             <use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#box-arrow-in-right"/>
                                         </svg>
                                     </a></li>
+                                    
                                 </ul>
                             </li>
                         {% endif %}
@@ -183,6 +235,23 @@
         .gradient_nav{
             background: rgb(203,232,255);
             background: linear-gradient(5deg, rgba(203,232,255,1) 0%, rgba(255,255,255,1) 30%, rgba(255,255,255,1) 50%, rgba(255,255,255,1) 70%, rgba(203,232,255,1) 100%);   
+        }
+        .profile_img{
+            border-radius:100%;
+        }
+        .notifications{
+            width: 450px;
+            max-width: 450px;
+            white-space: initial;
+            display: flex;
+            align-items: center;
+        }
+        .ver_todas{
+            text-align: right;
+        }
+        .tiempo_notificaciones{
+            font-style: italic;
+            font-size: medium;
         }
         
     </style>
