@@ -1,8 +1,118 @@
 {% extends 'base.html' %}
-    {% block body %}
-    <div>
-        <p>{{posts.tittle}}</p>
-        <h3>{{posts.definition}}</h3>
-        <h4>by @{{posts.user.username}}</h4>
+{% load static %}
+
+{% block body %}
+<div>
+    <div class="titulo"> <h1> VIDRIO </h1></div>
+</div>
+<!-- ------------------------------------------------------- -->
+
+<div class="container d-sm-flex">
+    <img class ="d-column-inline imagen" src="{% static 'images/Vidrio/1.png'%}" alt="econciencia">
+    <div class="texto d-column-inline text-center align-items-center">
+        <h2>¿Qué es el Vidrio?</h2>
+        <p id="uno"> Es un material inorgánico, duro, frágil y transparente, este compuesto principalmente de arena y álcali. 
+            Los seres humanos estamos rodeados de este material, ya que, se utiliza para hacer ventanas, botellas, lentes, 
+            entre otros productos. </p>
     </div>
-    {%endblock%}
+</div>
+
+<!-- --------------------------------------------------------- -->
+
+<div class="text-center container">
+    <h2> Reciclaje del vidrio </h2>
+    <p id="uno">  El vidrio es un material maravilloso para ser reciclado, debido a que se puede ser reciclado el 100%, 
+    cuantas veces sea necesario y lo mejor es que nunca pierde sus propiedades, 
+    por lo que se puede decir que tiene un ciclo perfecto por lo dicho anteriormente.  </p>
+</div>
+
+<div class="text-center container">
+    <h2> ¿Como se recicla? </h2>
+    <p id="uno">  Para alcanzar un proceso de reciclaje lo mas optimo posible, es imprescindible saber que existen dos 
+        formas de reciclar en la primera forma en esta forma de reciclaje es importante que el material se deposite 
+        en los contenedores verdes, puesto que tiene que entrar en un proceso de selección </p>     
+</div>
+<!-- ------------------------------------------------------- -->
+
+<div class="container d-sm-flex">
+    <div class="texto d-column-inline text-left">
+        <p id="dos">Primera forma</p>
+        <ol>
+            <li>Se reúne la mayor cantidad posible</li>
+            <li>Entra en un proceso de selección, preparación y clasificación según el color y tipo de vidrio</li>
+            <li>Se tritura para fundirlo</li>
+            <li>se genera el nuevo producto</li>
+        </ol>
+        <p id="uno">que se puede introducir:</p>
+        <ul>
+            <li>Botellas de vidrio (sin tapa o corcho)</li>
+            <li>Frascos de vidrio, como los del perfume</li>
+            <li>Lentes</li>
+        </ul>
+    </div>
+    <img class ="d-column-inline imagen" src="{% static 'images/Vidrio/2.png'%}" alt="econciencia">
+</div>
+
+<!-- ------------------------------------------------------------------ -->
+
+<!-- --------------------------------------------------------- -->
+<div class="container">
+    <p id="dos">Segunda forma</p> <br>
+    <p id="uno">La otra forma de reciclarlo es muy sencilla y útil para muchas personas, 
+        ya que consiste en lavar por ejemplo las botellas o tarros y para luego dejar 
+        volar la imaginación y utilizarlo como jarrón, porta velas, lámparas, envases, etc. </p>
+   
+    <div class=" container d-sm-flex justify-content-center">
+        <img class ="d-inline imagenes" src="{% static 'images/Vidrio/3.png'%}" alt="econciencia">
+        <img class ="d-inlene imagenes" src="{% static 'images/Vidrio/4.png'%}" alt="econciencia">
+    </div>
+
+</div>
+<!-- ------------------------------------------------------------------ -->
+
+<div class="container d-sm-flex justify-content-center">
+    <div class="texto d-column-inline text-left">
+        <h2>No confundir</h2>
+        <ul>
+            <li>Cerámica (Platos o tazas)</li>
+            <li>Porcelana</li>
+            <li>Cristal de copas o vasos</li>
+            <li>Bombillas (se deben depositar en un punto limpio)</li>
+            <li>Espejos (se deben depositar en un punto limpio)</li>
+        </ul>
+    </div>
+    <img class ="d-column-inline imagen" src="{% static 'images/Vidrio/5.png'%}" alt="econciencia">
+</div>
+
+
+<!-- --------------------------------------------------------- -->
+<div class="container d-sm-flex justify-content-center">
+    <img class ="d-column-inline imagen" src="{% static 'images/Vidrio/6.png'%}" alt="econciencia">
+    <div class="texto d-column-inline text-left align-items-center">
+        <h2 class="text-center">Beneficios</h2>
+        <ul>
+            <li>Ahorro de energía en la fabricación de nuevos envases </li>
+            <li>Evita la extracción de materias primas y erosión del suelo</li>
+            <li>Ayuda al cambio climático ya que se reducen las emisiones de CO2</li>
+            <li>Evita que se genere mas residuos en los vertederos</li>
+            <li>Mejora la calidad del aire y agua, debido a que disminuye la contaminación </li>
+        </ul>
+    </div>
+</div>
+
+
+{%endblock%}
+
+{% block stylesheets %}
+    {{block.super}}
+    
+    <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="{% static 'css/post.css'%}">
+    <link href='https://fonts.googleapis.com/css?family=Alfa Slab One' rel='stylesheet'>
+    
+{% endblock%}
+{% block javascripts %}
+    {{block.super}}
+    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+    <script src="{% static 'js/home.js'%}"></script>
+{% endblock%}

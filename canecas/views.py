@@ -155,3 +155,4 @@ def consultar_canecas(request, id):
         'canecas': canecas_user,
         'form': form
     })
+

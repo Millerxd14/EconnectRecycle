@@ -4,22 +4,20 @@
 {% block body %}
 <div class="m-5 d-flex justify-content-center row completo">
     <div class="row">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <button type="button" class="mb-3 btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
             Agregar Caneca
         </button>
     </div>
     <div>
-        <table class="table caption-top table-bordered table-responsive" id="example" >
+        <table id="example" class="table caption-top table-bordered table-responsive" >
             <caption>Lista de Canecas</caption>
-            <thead class="table-success">
-                <tr>
-                    Econciencia 
-                </tr>
+            <thead class="table-otro">
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">MAC</th>
-                    <th scope="col">Código</th>
+                    <th scope="col">Dirección</th>
+                    <th scope="col">Eliminar</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,6 +27,7 @@
                     <td>{{caneca.name}}</td>
                     <td>{{caneca.mac}}</td>
                     <td>{{caneca.ubicacion}}</td>
+                    <td><button type="button" class="btn btn-otro">Eliminar</button></td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -81,15 +80,15 @@
 
 {% block stylesheets %}
     {{block.super}}
-    <link rel="stylesheet" href="{% static 'css/caneca.css'%}">
-
+    <link rel="stylesheet" href="{% static 'css/consulta.css'%}">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
 {% endblock%}
 
 {% block javascripts %}
     {{block.super}}
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/export-data.js"></script>
-    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-    <script src="{% static 'js/caneca.js'%}"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+    <script scr="//cdn.datatables.net/plug-ins/1.12.1/i18n/es-ES.json"></script>
+    <script src="{% static 'js/consulta.js'%}"></script>
 {% endblock%}
