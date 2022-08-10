@@ -119,12 +119,12 @@
                             <li class="nav-item dropdown">
                                 
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    {% if user.profile_picture != '' %}
-                                        <img class="profile_img" src="{{ profile.profile_picture.url }}" alt="user_image" width="28" height="28">
-                                    {% else %}
+                                    {% if user.profile_picture == '' or user.profile_picture != null %}
                                         <svg class="bi login__icon" width="28" height="28" fill="currentColor">
                                             <use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#person-circle"/>
                                         </svg>
+                                    {% else %}
+                                        <img class="profile_img" src="{{ profile.profile_picture.url }}" alt="user_image" width="28" height="28">
                                     {% endif %}
                                     
                                      {{user.username}}

@@ -137,6 +137,8 @@ class CanecaApiView(viewsets.ModelViewSet):
 @login_required
 def mi_caneca(request,id):
     caneca = Caneca.objects.get(id=id)
+    profile = request.user.profile
+    
     if request.method == 'POST':
         form = CreateCaneca(request.POST)
         if form.is_valid():
@@ -159,13 +161,14 @@ def mi_caneca(request,id):
     data.insert(0,caneca.paper)
     data.insert(0,caneca.plastic)
 
-    
-
-    return render(request, 'canecas/mi_caneca.html',{
+    context = {
+        'profile': profile,
         'form': form,
         'caneca': caneca,
         'data': data
-    })
+    }
+
+    return render(request, 'canecas/mi_caneca.html',context)
 
 
 @login_required
@@ -185,7 +188,7 @@ def consultar_canecas(request):
         form = CreateCaneca(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('canecas:consultar_canecas')
+            return redirect('canecas:consultas')
     else:
         form = CreateCaneca()
     #user = request.user
