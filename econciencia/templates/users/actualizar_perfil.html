@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% block body%}
+    {%load static%}
+    <div class="d-flex justify-content-center align-items-center mt-5">
+        <div class="form d-flex justify-content-center contenedor_form">
+            <form action="{% url 'users:actualizar_perfil' %}" method="post" enctype="multipart/form-data"> 
+                {% csrf_token %}
+                {% if form.errors %}
+                    <p class="alert alert-danger">{{ form.errors}}</p>
+                {% endif %}
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col-md-3 text-center">
+                            {% if profile.profile_picture%}
+                                <img class="update_image" src="{{ profile.profile_picture.url }}" alt="user_image">
+                            {% else %}
+                                <img class="update_image" src="{% static '/images/users/default_user.jpg' %}" alt="user_image">
+                            {% endif%}
+                        </div>
+                        <div class="col-md-9">
+                            <p><strong> @{{user.username}} | {{user.get_full_name}} </strong></p> 
+                            <input type="file" class="form-control" id="profile_picture" name="profile_picture"/>
+                            
+                            {{readonly}}
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="mb-2">
+                    <label for="person_type_form" class="form-label"><strong> Tipo de persona </strong></label>
+                    <select class="form-select" name="person_type" id="person_type" aria-describedby="help_person_type">
+                        <option selected>Seleccione</option>
+                        <option value="1"> Natural</option>
+                        <option value="2"> Jurídica</option>
+                    </select>
+                  <div id="help_person_type" class="form-text ayudas_form">Por favor indicanos que tipo de persona eres</div>
+                </div>
+                <div class="mb-2">
+                  <input type="text" class="form-control" id="company_name" name="company_name" placeholder="Nombre de la empresa" value="{{profile.company_name}}"/>
+                  <div id="company_name_form" class="form-text ayudas_form">Si no tienes nombre de empresa por favor coloca tu nombre</div>
+                </div>
+                <div class="mb-2">
+                    <input type="text" class="form-control" id="dni" name="dni" placeholder="Número de documento / Nit" value="{{profile.dni}}"/>
+                </div>
+                <div class="mb-2">
+                    <input type="text" class="form-control" id="direction" name="direction" placeholder="Dirección" value="{{profile.direction}}"/>
+                </div>
+
+                <div class="mb-3">
+                    <input type="text" class="form-control" id="phone_number" name="phone_number" placeholder="Teléfono" value="{{profile.phone_number}}"/>
+                </div>
+
+            
+                <button type="submit" class="btn btn-primary w-100 mb-3">Guardar </button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
+{% block stylesheets %}
+{{block.super}}
+    <style>
+        .contenedor_form{
+            width: 600px;
+            min-height: 600px;
+            max-width: 600px;
+            border-radius: 30px;
+            background: linear-gradient(225deg,#0492C2, #fff);
+            align-items: center;
+        }
+        .contenedor_form strong{
+            color: #02526D;
+        }
+        .ayudas_form{
+            color: #036A8C;
+        }
+        .update_image{
+            width: 90px;
+            height: 90px;
+            border-radius: 100%;
+        }
+    </style>
+{% endblock %}
+{% block javascripts %}
+ {{block.super}}
+    {% if form.errors %}
+    {{ form.errors|json_script:"errores" }}
+        <script>
+            var errores = JSON.parse(document.getElementById('errores').textContent);
+           
+            var consolidado = "";
+            for (const error in errores) {
+                
+                consolidado += `${error}:\n\t ${errores[error]}\n`;
+            }
+            send_notification( 'error','Error',consolidado,'3000')
+    </script>
+    {% endif %}
+{% endblock %}

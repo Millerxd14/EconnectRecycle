@@ -1,0 +1,114 @@
+{% extends "users/base.html" %} 
+{% block tittle %}
+   <title> Econciencia - SingUp</title>
+{% endblock %}
+
+{% block body %}
+    {% load static %}
+
+	<form action="{% url 'users:singup'%}" method="post" class="login">
+		{% csrf_token %}
+		
+		<div class="d-flex contenedor_inputs">
+			
+			<div class="figura_1">
+			</div>
+			<div class="figura_2">
+			</div>
+			<div class="figura_3">
+			</div>
+			<div class="row login__field">
+				<div class="col-md-12">
+					<svg class="bi login__icon" width="20" height="20" fill="currentColor">
+						<use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#person-circle"/>
+					</svg>
+					<input class="login__input" type="text" name="username" id="username" required="True" placeholder="Usuario">
+				</div>
+				
+			</div>
+			<div class="row login__field">
+				<div class="col-md-6">
+					<svg class="bi login__icon" width="20" height="20" fill="currentColor">
+						<use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#lock-fill"/>
+					</svg>
+					<input class="login__input" type="password" name="password" id="password" required="True" placeholder="Contraseña">
+				</div>
+				<div class="col-md-6 ">
+					<svg class="bi login__icon" width="20" height="20" fill="currentColor">
+						<use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#lock-fill"/>
+					</svg>
+				<input class="login__input" type="password" name="password_confirmation" required="True" id="password_confirmation" placeholder="Confirmar contraseña">
+				</div>
+			</div>
+
+			<div class="row login__field">
+				<div class="col-md-6">
+					<svg class="bi login__icon" width="20" height="20" fill="currentColor">
+						<use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#person-fill"/>
+					</svg>
+					<input class="login__input" type="text" name="first_name" id="first_name" required="True" placeholder="Nombres">
+				</div>
+				<div class="col-md-6">
+					<svg class="bi login__icon" width="20" height="20" fill="currentColor">
+						<use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#person-fill"/>
+					</svg>
+					<input class="login__input" type="text" name="last_name" id="last_name" required="True" placeholder="Apellidos">
+				</div>
+			</div>
+
+
+			<div class="login__field">
+				<svg class="bi login__icon" width="20" height="20" fill="currentColor">
+					<use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#envelope-fill"/>
+				</svg>
+				<input class="login__input" type="email" name="email" id="email" placeholder="Correo eléctronico">
+			</div>
+
+			
+			<div class="login__field">
+				<svg class="bi login__icon" width="20" height="20" fill="currentColor">
+					<use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#arrow-right-circle-fill"/>
+				</svg>
+				<select class="login__input" name="tipo_usuario" id="tipo_usuario">
+					<option value="0" selected> ¿ Que tipo de usuario eres ?</option>
+					
+					<option value="1"> Recolector de residuos</option>
+					<option value="2"> Productor de residuos </option>
+				</select>
+			</div>
+			
+			<div class="row login__field">
+				<button class="button login__submit">
+					<span class="button__text">Registrarme</span>
+					<svg class="bi button__icon" width="20" height="20" fill="currentColor">
+						<use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#caret-right-fill"/>
+					</svg>
+				</button>
+			</div>
+			
+		</div>
+		
+	</form>
+
+	
+{% endblock%}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="{% static 'css/users/singup.css'%}">
+{% endblock %}
+ 
+{% block javascripts %}
+ {{block.super}}
+ 	
+	{% if form.errors %}
+        {{ form.errors|json_script:"errores" }}
+        <script>
+            var errores = JSON.parse(document.getElementById('errores').textContent);
+            var consolidado = "";
+            for (const error in errores) {
+                consolidado += `${error}:\n\t ${errores[error]}\n`;
+            }
+            send_notification( 'error','Error',consolidado,'3000')
+        </script>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block body%}
+    
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide" style="background-image:url({% static 'images/home/1.jpg'%})"></div>
+            <div class="swiper-slide" style="background-image:url({% static 'images/home/2.jpg'%})"></div>
+            <div class="swiper-slide" style="background-image:url({% static 'images/home/3.jpg'%})"></div>
+            <div class="swiper-slide" style="background-image:url({% static 'images/home/4.jpg'%})"></div>
+            <div class="swiper-slide" style="background-image:url({% static 'images/home/5.jpg'%})"></div>
+            <div class="swiper-slide" style="background-image:url({% static 'images/home/6.jpg'%})"></div>
+        </div>
+        <div class="swiper-pagination"></div>
+    </div>
+   
+    <div class="titulo"> <h1> ¿Qué es econciencia? </h1></div>
+    <div class="row econciencia">
+        <div class=" col-md-6 text-center">
+            <img class ="imagen" src="{% static 'images/home/econciencia.png'%}" alt="econciencia">
+        </div>
+        <div class="col-md-6 text-center d-flex justifi-content-center align-items-center texto">
+            <div class="w-100 text-center">
+                <p id="uno">  Econciencia quiere dar a entender porque el reciclaje es tan importante por medio 
+                    de la tecnología, por eso se desglosa en tres partes el nombre  </p>
+                <p id="dos"> ECO = Reciclaje, cuidado del medio ambiente</p>
+                <p id="tres">Conciencia = Enseñar sobre el reciclaje y como ayuda al cuidado del medio ambiente </p>
+                <p id="cuatro">Con Ciencia = Creando una caneca que ayude en la clasificación de residuos y una página web con información del reciclaje </p>
+            </div>
+        </div> 
+    </div>
+
+    <div class="container">
+        @{{ request.user.username}} ese eres tu
+        <br>
+        Hola
+    </div>
+
+{% endblock%}
+{% block stylesheets %}
+    {{block.super}}
+    
+    <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="{% static 'css/home.css'%}">
+    
+{% endblock%}
+{% block javascripts %}
+    {{block.super}}
+    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+    <script src="{% static 'js/home.js'%}"></script>
+{% endblock%}

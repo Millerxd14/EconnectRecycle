@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "@pnotify/core": "^5.2.0",
+    "@pnotify/mobile": "^5.2.0",
+    "noty": "^3.2.0-beta-deprecated"
+  },
+  "devDependencies": {
+    "@pnotify/bootstrap3": "^5.2.0",
+    "@pnotify/bootstrap4": "^5.2.0",
+    "@pnotify/font-awesome4": "^5.2.0",
+    "@pnotify/glyphicon": "^5.2.0"
+  }
+}
