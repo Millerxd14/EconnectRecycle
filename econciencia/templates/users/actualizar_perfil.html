@@ -11,7 +11,7 @@
                 <div class="mb-3">
                     <div class="row">
                         <div class="col-md-3 text-center">
-                            {% if profile.profile_picture%}
+                            {% if profile.profile_picture %}
                                 <img class="update_image" src="{{ profile.profile_picture.url }}" alt="user_image">
                             {% else %}
                                 <img class="update_image" src="{% static '/images/users/default_user.jpg' %}" alt="user_image">

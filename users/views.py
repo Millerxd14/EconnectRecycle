@@ -63,6 +63,7 @@ def recuperar_contrasena(request):
     pass
 
 def update_profile(request):
+    #import pdb;pdb.set_trace()
     profile = request.user.profile
     if request.method == 'POST':
         form = ProfileForm(request.POST, request.FILES)
