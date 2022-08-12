@@ -9,10 +9,10 @@
     <!-- jsFiddle will insert css and js -->
 
 {% block body %}
-  <h3>My Google Maps Demo</h3>
+  <h3>Hola =????</h3>
   <!--The div element for the map -->
   <div id="map" class="mapa"></div>
-
+  <div>
   <!-- 
     The `defer` attribute causes the callback to execute after the full HTML
     document has been parsed. For non-blocking uses, avoiding race conditions,
@@ -25,32 +25,97 @@
 {% block javascripts %}
   {{block.super}} 
   <script
+  
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6rAbvp1ZMcUIQ2o_PnAvloNVuW-I7vOQ&callback=initMap&v=weekly"
       defer
     ></script>
     <script>
-      /**
-      * @license
-      * Copyright 2019 Google LLC. All Rights Reserved.
-      * SPDX-License-Identifier: Apache-2.0
-      */
-      // Initialize and add the map
+      let rectangle;
+      let map;
+      let infoWindow;
+      let infomarker;
+      let marker;
+
       function initMap() {
-        // The location of Uluru
-        const uluru = { lat: -25.344, lng: 131.031 };
-        // The map, centered at Uluru
-        const map = new google.maps.Map(document.getElementById("map"), {
-          zoom: 4,
-          center: uluru,
+        map = new google.maps.Map(document.getElementById("map"), {
+          center: { lat: 44.5452, lng: -78.5389 },
+          zoom: 9,
         });
-        // The marker, positioned at Uluru
-        const marker = new google.maps.Marker({
-          position: uluru,
-          map: map,
+
+        const bounds = {
+          north: 44.599,
+          south: 44.49,
+          east: -78.443,
+          west: -78.649,
+        };
+
+        // Define the rectangle and set its editable property to true.
+        rectangle = new google.maps.Rectangle({
+          bounds: bounds,
+          editable: true,
+          draggable: true,
         });
+        
+        
+        rectangle.setMap(map);
+        
+        const myLatLng = { lat: 44.497201777815135, lng: -78.22357812499996 };
+        marker = new google.maps.Marker({
+          position: myLatLng,
+          draggable: true,
+          map,
+          title: "Hello World!",
+        });
+        // Add an event listener on the rectangle.
+        rectangle.addListener("bounds_changed", showNewRect);
+        marker.addListener("dragend", showMarker);
+        // Define an info window on the map.
+        infoWindow = new google.maps.InfoWindow();
+        infomarker = new google.maps.InfoWindow();
       }
 
+      /** Show the new coordinates for the rectangle in an info window. */
+      function showNewRect() {
+        const ne = rectangle.getBounds().getNorthEast();
+        const sw = rectangle.getBounds().getSouthWest();
+        const contentString =
+          "<b>Rectangle moved.</b><br>" +
+          "New north-east corner: " +
+          ne.lat() +
+          ", " +
+          ne.lng() +
+          "<br>" +
+          "New south-west corner: " +
+          sw.lat() +
+          ", " +
+          sw.lng();
+
+        // Set the info window's content and position.
+        infoWindow.setContent(contentString);
+        infoWindow.setPosition(ne);
+        infoWindow.open(map);
+      }
+      function showMarker() {
+        const position = marker.getPosition();
+        const contentString =
+          "<b>Marker</b><br>" +
+          "Latitud " +
+          position.lat() +
+          ", Longitud" +
+          position.lng() +
+          "<br>";
+
+        // Set the info window's content and position.
+        infomarker.setContent(contentString);
+        infomarker.open({
+            anchor: marker,
+            map,
+            shouldFocus: false,
+          });
+
+      }
       window.initMap = initMap;
+
     </script>
 {% endblock %}
     

@@ -1,6 +1,6 @@
 
 #django
-from django.shortcuts import get_object_or_404, render, redirect
+from django.shortcuts import get_object_or_404, render, redirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 
 
@@ -175,7 +175,8 @@ def mi_caneca(request,id):
 def entregas(request):
     profile = request.user.profile
     context = {
-        'profile': profile
+        'profile': profile,
+        'room_name': 'broadcast'
     }
     return render(request, 'canecas/entregas.html',context)
 
@@ -200,3 +201,18 @@ def consultar_canecas(request):
         'form': form
     }
     return render(request, 'canecas/consultas.html',context)
+
+
+from asgiref.sync import async_to_sync
+from channels.layers import get_channel_layer
+def test_notification(request):
+    channel_layer = get_channel_layer()
+    async_to_sync(channel_layer.group_send)(
+        'notification_broadcast',
+        {
+            "type": 'send_notification',
+            "message": "Enviando notificacion"
+        }
+    )
+    return HttpResponse("done caredone")
+

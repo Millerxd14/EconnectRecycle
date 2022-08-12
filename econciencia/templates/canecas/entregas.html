@@ -1,104 +1,133 @@
-{% extends 'base.html' %}
+
+ {% extends "base.html" %}
+  
+  
+{% block scripts_header %}
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+{% endblock scripts_header %}
+  
+    <!-- jsFiddle will insert css and js -->
 
 {% block body %}
-<h3>My Google Maps Demo</h3>
-    <!--The div element for the map -->
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-
-    <div id="map"></div>
-
-    <!-- 
+  <h3>Mapa de los recolectores</h3>
+  <!--The div element for the map -->
+  <div id="map" class="mapa"></div>
+  <div>
+  <!-- 
     The `defer` attribute causes the callback to execute after the full HTML
     document has been parsed. For non-blocking uses, avoiding race conditions,
     and consistent behavior across browsers, consider loading using Promises
     with https://www.npmjs.com/package/@googlemaps/js-api-loader.
-    -->
-    
-
-
+  -->
 {% endblock %}
-
 
 
 {% block javascripts %}
-  {{block.super}}
-  <script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
-  <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6rAbvp1ZMcUIQ2o_PnAvloNVuW-I7vOQ&callback=initMap&v=weekly">
-  </script>
-  <script>
-  function initMap() {
-    const map = new google.maps.Map(document.getElementById("map"), {
-      zoom: 3,
-      center: { lat: -28.024, lng: 140.887 },
-    });
-    const infoWindow = new google.maps.InfoWindow({
-      content: "",
-      disableAutoPan: true,
-    });
-    // Create an array of alphabetical characters used to label the markers.
-    const labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    // Add some markers to the map.
-    const markers = locations.map((position, i) => {
-      const label = labels[i % labels.length];
-      const marker = new google.maps.Marker({
-        position,
-        label,
-      });
-      console.log(locations);
-      // markers can only be keyboard focusable when they have click listeners
-      // open info window when marker is clicked
-      marker.addListener("click", () => {
-        infoWindow.setContent(label);
-        infoWindow.open(map, marker);
-      });
-      return marker;
-    });
+  {{block.super}} 
+  <script
+  
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6rAbvp1ZMcUIQ2o_PnAvloNVuW-I7vOQ&callback=initMap&v=weekly"
+      defer
+    ></script>
+    <script>
+      let rectangle;
+      let map;
+      let infoWindow;
+      let infomarker;
+      let marker;
 
-    // Add a marker clusterer to manage the markers.
-    //new MarkerClusterer({ markers, map });
-  }
+      function initMap() {
+        map = new google.maps.Map(document.getElementById("map"), {
+          center: { lat: 4.626677296847028, lng: -73.80432763671872 },
+          zoom: 9,
+        });
 
-  const locations = [
-    { lat: -31.56391, lng: 147.154312 },
-    { lat: -33.718234, lng: 150.363181 },
-    { lat: -33.727111, lng: 150.371124 },
-    { lat: -33.848588, lng: 151.209834 },
-    { lat: -33.851702, lng: 151.216968 },
-    { lat: -34.671264, lng: 150.863657 },
-    { lat: -35.304724, lng: 148.662905 },
-    { lat: -36.817685, lng: 175.699196 },
-    { lat: -36.828611, lng: 175.790222 },
-    { lat: -37.75, lng: 145.116667 },
-    { lat: -37.759859, lng: 145.128708 },
-    { lat: -37.765015, lng: 145.133858 },
-    { lat: -37.770104, lng: 145.143299 },
-    { lat: -37.7737, lng: 145.145187 },
-    { lat: -37.774785, lng: 145.137978 },
-    { lat: -37.819616, lng: 144.968119 },
-    { lat: -38.330766, lng: 144.695692 },
-    { lat: -39.927193, lng: 175.053218 },
-    { lat: -41.330162, lng: 174.865694 },
-    { lat: -42.734358, lng: 147.439506 },
-    { lat: -42.734358, lng: 147.501315 },
-    { lat: -42.735258, lng: 147.438 },
-    { lat: -43.999792, lng: 170.463352 },
-  ];
+        const bounds = {
+          north:4.7 ,
+          south:4.626677296847028 ,
+          east: -73.6,
+          west: -73.80432763671872,
+        };
 
-  window.initMap = initMap;
+        // Define the rectangle and set its editable property to true.
+        rectangle = new google.maps.Rectangle({
+          bounds: bounds,
+          editable: true,
+          draggable: true,
+        });
+        
+        
+        rectangle.setMap(map);
+        
+        const myLatLng = { lat: 4.626677296847028, lng: -73.80432763671872 };
+        marker = new google.maps.Marker({
+          position: myLatLng,
+          draggable: true,
+          map,
+          title: "Hello World!",
+        });
+        // Add an event listener on the rectangle.
+        rectangle.addListener("bounds_changed", showNewRect);
+        marker.addListener("dragend", showMarker);
+        // Define an info window on the map.
+        infoWindow = new google.maps.InfoWindow();
+        infomarker = new google.maps.InfoWindow();
+      }
 
-</script>
-{% endblock javascripts %}
+      /** Show the new coordinates for the rectangle in an info window. */
+      function showNewRect() {
+        const ne = rectangle.getBounds().getNorthEast();
+        const sw = rectangle.getBounds().getSouthWest();
+        const contentString =
+          "<b>Rectangle moved.</b><br>" +
+          "New north-east corner: " +
+          ne.lat() +
+          ", " +
+          ne.lng() +
+          "<br>" +
+          "New south-west corner: " +
+          sw.lat() +
+          ", " +
+          sw.lng();
 
+        // Set the info window's content and position.
+        infoWindow.setContent(contentString);
+        infoWindow.setPosition(ne);
+        infoWindow.open(map);
+      }
+      function showMarker() {
+        const position = marker.getPosition();
+        const contentString =
+          "<b>Marker</b><br>" +
+          "Latitud " +
+          position.lat() +
+          ", Longitud" +
+          position.lng() +
+          "<br>";
+
+        // Set the info window's content and position.
+        infomarker.setContent(contentString);
+        infomarker.open({
+            anchor: marker,
+            map,
+            shouldFocus: false,
+          });
+
+      }
+      window.initMap = initMap;
+
+    </script>
+{% endblock %}
+    
 {% block stylesheets %}
     {{block.super}}
-    <style>
-        /* Set the size of the div element that contains the map */
-        #map {
-            height: 400px;
-            /* The height is 400 pixels */
-            width: 100%;
-            /* The width is the width of the web page */
-        }
-    </style>
+  <style>
+    .mapa {
+      height: 400px;
+      /* The height is 400 pixels */
+      width: 80%;
+      /* The width is the width of the web page */
+    }
+  </style>
 {% endblock %}
+
