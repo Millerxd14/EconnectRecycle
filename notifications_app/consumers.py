@@ -61,4 +61,10 @@ class NotificationConsumer(AsyncWebsocketConsumer):
     def obtener_notificaciones_usuario(self):
         usuario = User.objects.get(username = self.scope["user"])
         notificaciones = BroadcastNotification.objects.filter(usuario_id = usuario.id)
-        return serializers.serialize("json", notificaciones,fields=('mensaje','estado'))
+        lista = []
+        for notificacion in notificaciones:
+            lista.append({
+                'mensaje': notificacion.mensaje,
+                'estado': notificacion.estado
+            })
+        return json.dumps(lista)

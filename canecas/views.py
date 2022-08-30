@@ -209,10 +209,8 @@ from asgiref.sync import async_to_sync
 from channels.layers import get_channel_layer
 
 def test_notification():
-    print("hola ==???")
+
     channel_layer = get_channel_layer()
-    
-    print(channel_layer.group_send)
     async_to_sync(channel_layer.group_send)(
         'notification_broadcast',
         {
@@ -220,5 +218,5 @@ def test_notification():
             "message": "Enviando notificacion"
         }
     )
-    return HttpResponse("done caredone")
+    return HttpResponse("Entregado")
 

@@ -296,7 +296,10 @@
             );
 
             notificationSocket.onmessage = function(e) {
-                const data = JSON.parse(e.data);
+                var data = e.data;
+                console.log(data);
+                //data = data.replace('',"u\'");
+                data = data.replace('\\"',"");
                 console.log(data);
                 //document.querySelector('#chat-log').value += (data.message + '\n');
             };
