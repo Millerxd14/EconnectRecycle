@@ -1,5 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
+from django.core import validators
+from django.contrib.auth.password_validation import validate_password
 
 from users.models import Profile
 
@@ -43,13 +45,14 @@ class SingUpForm(forms.Form):
 
     def clean(self):
         data = super().clean()
-        
+    
         password = data['password']
         password_confirmation = data['password_confirmation']
 
         if(password != password_confirmation):
             raise forms.ValidationError('Las contraseñas no coinciden')
-
+        else:
+            validate_password(password=password)
 
         if data['tipo_usuario'] == '0':
             raise forms.ValidationError(' Selecciona un tipo de usuario ')
@@ -72,7 +75,6 @@ class SingUpForm(forms.Form):
         data.pop('is_collector')
         data.pop('is_productor')
         data.pop('tipo_usuario')
-        print(data['last_name'])
         user = User.objects.create_user(**data)
         profile = Profile(user = user, is_collector = is_collector, is_productor = is_productor)
         profile.save()

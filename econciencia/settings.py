@@ -49,6 +49,10 @@ INSTALLED_APPS = [
     'posts',
     'canecas',
 
+    #notificaciones
+    'channels',
+    'notifications_app',
+
     #api
     'rest_framework',
 
@@ -85,6 +89,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'econciencia.wsgi.application'
+ASGI_APPLICATION = 'econciencia.asgi.application'
 
 
 # Database
@@ -165,3 +170,8 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
+}

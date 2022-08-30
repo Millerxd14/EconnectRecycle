@@ -1,10 +1,12 @@
-**/__pycache__
-**/__pycache__/*
-**/migrations
-**/migrations/*
+econciencia/__pycache__
+econciencia/middlewares/__pycache__
 
+
+**/__pycache__
+
+**/migrations
 **/migrations/__pycache__/
-**/migrations/__pycache__/*
+
 
 #
 *.log
