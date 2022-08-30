@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+
+<div class="m-5  d-flex justify-content-center row completo">
+    <table id="example" class="table  table-bordered table-responsive caption-top" >
+        <caption>Lista de Productores</caption>
+        <thead class="table-otro">
+            <th class="text-center" scope="col">Nombre</th>
+            <th class="text-center" scope="col">Residuo</th>
+            <th class="text-center" scope="col">Porcentaje</th>
+            <th class="text-center" scope="col">Aceptar</th>
+        </thead>
+        <tbody>
+            {% for productor in productores %}
+                <td><button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#exampleModal"> nnn {{productor.nombre}}</button></td>
+                <td>{{productor.residuo}}</td>
+                <td>{{productor.porcentaje}}</td>
+                <td class="text-center">
+                    <button type="button" class="btn btn-primary m-0 ">Aceptar</button>
+                    <button type="button" class="btn btn-primary m-0">Rechazar</button>
+                </td>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Información </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="mb-3">
+                <label for="user" class="col-form-label">Telefono:</label>
+                <input type="text" class="form-control" name="user" id="user" value ="{{ productor.phone_number }}" readonly>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+<!-- {% for productor in productores %}
+    <p>{{productor.direction}}</p>
+    <p>{{productor.dni}}</p>
+    <p>{{productor.phone_number}}</p>
+    {% endfor %} -->
+    
+{% endblock %}
+
+{% block stylesheets %}
+    {{block.super}}
+    <link rel="stylesheet" href="{% static 'css/consulta.css'%}">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+{% endblock%}
+
+{% block javascripts %}
+    {{block.super}}
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+    <script scr="https://cdn.datatables.net/plug-ins/1.12.1/i18n/es-ES.json"></script>
+    <script src="{% static 'js/consulta.js'%}"></script>
+{% endblock%}

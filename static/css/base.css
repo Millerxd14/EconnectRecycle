@@ -1,0 +1,104 @@
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.navbar-type{
+    display: inline-block;
+    vertical-align: middle;
+    max-width: 300px;
+}
+
+.navbar-logo{
+    display: inline-block;
+    vertical-align: middle;
+    width: 65px;
+}
+.boton_inicio{
+    max-width: 300px;
+    width: 125px;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.btn-primary{
+    background-color: #FF641F;
+    border-color:#FF641F ;
+}
+.btn{
+    font-size: medium;
+}
+
+.btn-primary:hover{
+    background-color: #FF8B57;
+    border-color:#FF8B57
+}
+ul,ol{
+    font-family: 'Raleway';
+    font-size: 22px;
+    font-weight: 100px;
+}
+
+@media screen and (max-width: 768px) {
+    .navbar-type {
+        display: inline-block;
+        vertical-align: middle;
+        width: 200px;
+    }
+    .boton_inicio{
+        max-width: 100px;
+        width: 100px;
+        margin-right: 5px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+}
+@media screen and (min-width: 1024px) {
+    /* .navbar-type {
+        display: inline-block;
+        vertical-align: middle;
+        width: 200px;
+    } */
+    .boton_inicio{
+        max-width: 100px;
+        width: 100px;
+        margin-right: 5px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+}
+@media screen and (min-width: 300px) {
+    /* .navbar-type {
+        display: inline-block;
+        vertical-align: middle;
+        width: 150px;
+    } */
+    .boton_inicio{
+        max-width: 100px;
+        width: 100px;
+        margin-right: 5px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+}
+.gradient_nav{
+    background: rgb(203,232,255);
+    background: linear-gradient(5deg, rgba(203,232,255,1) 0%, rgba(255,255,255,1) 30%, rgba(255,255,255,1) 50%, rgba(255,255,255,1) 70%, rgba(203,232,255,1) 100%);   
+}
+.profile_img{
+    border-radius:100%;
+}
+.notifications{
+    width: 450px;
+    max-width: 450px;
+    white-space: initial;
+    display: flex;
+    align-items: center;
+}
+.ver_todas{
+    text-align: right;
+}
+.tiempo_notificaciones{
+    font-style: italic;
+    font-size: medium;
+}

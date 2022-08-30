@@ -35,6 +35,15 @@ urlpatterns = [
         view = views.update_profile, 
         name='actualizar_perfil'
     ),
-
+    path(
+        route ='recolectores/',
+        view = views.recolectores, 
+        name='recolectores'
+    ),
+    path(
+        route ='productores/',
+        view = views.productores, 
+        name='productores'
+    ),
 
 ]

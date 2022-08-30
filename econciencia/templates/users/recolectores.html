@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+
+<!-- <div class="m-5  d-flex justify-content-center row completo">
+    <table id="example" class="table  table-bordered table-responsive caption-top" >
+        <caption>Lista de Recolectores</caption>
+        <thead class="table-otro">
+            <th class="text-center" scope="col">Nombre</th>
+            <th class="text-center" scope="col">Zona</th>
+            <th class="text-center" scope="col">Aceptar</th>
+        </thead>
+        <tbody>
+            {% for recolector in recolectores %}
+                <td><button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#exampleModal"> nnn {{recolector.nombre}}</button></td>
+                <td>{{recolector.zona}}</td>
+                <td class="text-center">
+                    <button type="button" class="btn btn-primary m-0">Aceptar</button>
+                    <button type="button" class="btn btn-primary m-0">Rechazar</button>
+                </td>
+            {% endfor %}
+        </tbody>
+    </table>
+</div> -->
+
+<div class="container mt-5">
+    <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+        <button class="btn btn-primary" type="submit">Buscar</button>
+    </form>
+</div>
+
+<div class="container">
+    <div class="row mt-3">
+        {% for recolector in recolectores %}
+        <div class="col-12 col-sm-12 col-md-4 mb-2">
+            <div class="card text-center border">
+                <div class="card-header text-center text-uppercase justify-content-center">
+                     {{recolector.company_name}}
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Residuo</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <p>{{recolector.direction}}</p>
+                    <p>{{recolector.phone_number}}</p>
+                    <p>{{recolector.user.email}}</p>
+                </div>
+                <div class="card-footer">
+                    <button type="button" class="btn btn-primary m-1">Aceptar</button>
+                    <button type="button" class="btn btn-secondary m-1">Rechazar</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-4 mb-2">
+            <div class="card text-center border-success">
+                <div class="card-header bg-transparent border-success">{{recolector.company_name}}</div>
+                <div class="card-body">
+                    <h5 class="card-title">Residuo</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <p>{{recolector.direction}}</p>
+                    <p>{{recolector.phone_number}}</p>
+                    <p>{{recolector.user.email}}</p>
+                </div>
+                <div class="card-footer bg-transparent border-success">
+                    <button type="button" class="btn btn-primary m-1">Aceptar</button>
+                    <button type="button" class="btn btn-secondary m-1">Rechazar</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-4">
+            <div class="card text-center border-success">
+                <div class="card-header bg-transparent border-success">{{recolector.company_name}}</div>
+                <div class="card-body">
+                    <h5 class="card-title">Residuo</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <p>{{recolector.direction}}</p>
+                    <p>{{recolector.phone_number}}</p>
+                    <p>{{recolector.user.email}}</p>
+                </div>
+                <div class="card-footer bg-transparent border-success">
+                    <button type="button" class="btn btn-primary m-1">Aceptar</button>
+                    <button type="button" class="btn btn-secondary m-1">Rechazar</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6">
+            <div class="card text-center border-success">
+                <div class="card-header bg-transparent border-success">{{recolector.company_name}}</div>
+                <div class="card-body">
+                    <h5 class="card-title">Residuo</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <p>{{recolector.direction}}</p>
+                    <p>{{recolector.phone_number}}</p>
+                    <p>{{recolector.user.email}}</p>
+                </div>
+                <div class="card-footer bg-transparent border-success">
+                    <button type="button" class="btn btn-primary m-1">Aceptar</button>
+                    <button type="button" class="btn btn-secondary m-1">Rechazar</button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+ 
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Información </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="mb-3">
+                <label for="user" class="col-form-label">Telefono:</label>
+                <input type="text" class="form-control" name="user" id="user" value ="{{ productor.phone_number }}" readonly>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{block.super}}
+    <link rel="stylesheet" href="{% static 'css/consulta.css'%}">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+{% endblock%}
+
+{% block javascripts %}
+    {{block.super}}
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+    <script scr="https://cdn.datatables.net/plug-ins/1.12.1/i18n/es-ES.json"></script>
+    <script src="{% static 'js/consulta.js'%}"></script>
+{% endblock%}

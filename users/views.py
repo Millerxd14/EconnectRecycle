@@ -6,9 +6,11 @@ from django.contrib.auth.decorators import login_required
 #forms 
 
 from users.forms import ProfileForm, SingUpForm
+from users.models import Profile
 
 # except careverga
 from django.db.utils import IntegrityError
+from django.contrib.auth.models import User
 
 
 
@@ -85,3 +87,32 @@ def update_profile(request):
         'user': request.user,
         'form': form
     })
+
+
+
+@login_required
+def recolectores(request):
+    profile = request.user.profile
+    user = request.user
+    #buscar recolectores por usuario en 
+    recolectores = Profile.objects.filter(is_collector = 1)
+    context ={
+        'profile': profile,
+        'user': request.user,
+        'recolectores':recolectores,
+    }
+    return render(request, 'users/recolectores.html',context)
+
+
+
+@login_required
+def productores(request):
+    profile = request.user.profile
+    
+    productores = Profile.objects.filter(is_productor = 1)
+    context = {
+        'profile': profile,
+        'user': request.user,
+        'productores': productores,
+    }
+    return render(request, 'users/productores.html',context)

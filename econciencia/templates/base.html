@@ -32,7 +32,7 @@
                             <img src="{% static 'images/logo.png'%}" class="navbar-logo" >
                         </a>
                         <a href="{% url 'home' %}" class="navbar-brand"> 
-                            <img src="{% static 'images/type_logo.png'%}" class="navbar-type" >
+                            <img src="{% static 'images/type_logo.png'%}" class="navbar-type">
                         </a>
                     </div>
                     <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#MenuNavegacion">
@@ -164,99 +164,9 @@
 
     </footer>
     {% block stylesheets %}
-    <style>
-        body{
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        .navbar-type{
-            display: inline-block;
-            vertical-align: middle;
-            max-width: 300px;
-            
-        }
-        .navbar-logo{
-            display: inline-block;
-            vertical-align: middle;
-            width: 56px;
-        }
-        .boton_inicio{
-            max-width: 300px;
-            width: 125px;
-            margin-right: 5px;
-            margin-top: 5px;
-            margin-bottom: 5px;
-        }
-        
-       
-        @media screen and (min-width: 768px) {
-            .navbar-type {
-                display: inline-block;
-                vertical-align: middle;
-                width: 100px;
-            }
-            .boton_inicio{
-                max-width: 100px;
-                width: 100px;
-                margin-right: 5px;
-                margin-top: 5px;
-                margin-bottom: 5px;
-            }
-        }
-        @media screen and (min-width: 1024px) {
-            .navbar-type {
-                display: inline-block;
-                vertical-align: middle;
-                width: 200px;
-            }
-            .boton_inicio{
-                max-width: 100px;
-                width: 100px;
-                margin-right: 5px;
-                margin-top: 5px;
-                margin-bottom: 5px;
-            }
-        }
-        @media screen and (min-width: 300px) {
-            .navbar-type {
-                display: inline-block;
-                vertical-align: middle;
-                width: 150px;
-            }
-            .boton_inicio{
-                max-width: 100px;
-                width: 100px;
-                margin-right: 5px;
-                margin-top: 5px;
-                margin-bottom: 5px;
-            }
-        }
-        .gradient_nav{
-            background: rgb(203,232,255);
-            background: linear-gradient(5deg, rgba(203,232,255,1) 0%, rgba(255,255,255,1) 30%, rgba(255,255,255,1) 50%, rgba(255,255,255,1) 70%, rgba(203,232,255,1) 100%);   
-        }
-        .profile_img{
-            border-radius:100%;
-        }
-        .notifications{
-            width: 450px;
-            max-width: 450px;
-            white-space: initial;
-            display: flex;
-            align-items: center;
-        }
-        .ver_todas{
-            text-align: right;
-        }
-        .tiempo_notificaciones{
-            font-style: italic;
-            font-size: medium;
-        }
-        
-    </style>
-
-    {% endblock %}
+    <link rel="stylesheet" href="{% static 'css/base.css'%}">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+    {% endblock%}
 
 
     {% block javascripts %}

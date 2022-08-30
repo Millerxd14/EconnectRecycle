@@ -1,5 +1,4 @@
 .btn-primary{
-    width: 220px;
     background-color: #FF641F;
     border-color:#FF641F ;
 }
@@ -66,16 +65,22 @@
     background-color: #FF8B57;
     border-color:#FF8B57
 }
-.modal-footer{
+.modal-footer, .card-footer{
     background-color: #0E185F;
 }
-.modal-header{
+.modal-header, .card-header{
     background-color: #0E185F;
     color: #fff;
     font-family:'Raleway' ;
     font-weight: bolder;
     display: flex;
     text-align: center;  
+}
+
+.card-body{
+    border-color: #0E185F;
+    border: solid 1px;
+    background-color: #DADDFC;
 }
 
 

@@ -200,3 +200,19 @@ def consultar_canecas(request):
         'form': form
     }
     return render(request, 'canecas/consultas.html',context)
+
+@login_required
+def eliminar_canecas(request, id):
+    profile = request.user.profile
+    caneca = get_object_or_404(Caneca, id=id)
+    caneca.delete()
+    context = {
+        'profile': profile,
+        'error': { 
+                    'tipo' : 'success',
+                    'titulo': 'Eliminado',
+                    'texto': 'La caneca fue eliminada',
+                    'tiempo': '2022'
+                }
+    }
+    return redirect('canecas:consultas')
