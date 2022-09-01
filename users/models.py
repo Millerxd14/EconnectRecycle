@@ -32,6 +32,44 @@ class Profile(models.Model):
         '''return username '''
         return self.user.username
 
+
+
+class Info_Recolector(models.Model):
+    '''
+        Define los datos que solo son del recolector
+    '''
+    profile = models.OneToOneField(Profile, on_delete = models.CASCADE)
+
+    description = models.TextField(max_length=300)
+
+    plastic = models.BooleanField(default=False)
+    plastic_price = models.BigIntegerField(default=False)
+    cardboard = models.BooleanField(default=False)
+    cardboard_price = models.BigIntegerField(default=False)
+    paper = models.BooleanField(default=False)
+    paper_price = models.BigIntegerField(default=False)
+    glass = models.BooleanField(default=False)
+    glass_price = models.BigIntegerField(default=False)
+    trash = models.BooleanField(default=False)
+    trash_price = models.BigIntegerField(default=False)
+    metal = models.BooleanField(default=False)
+    metal_price = models.BigIntegerField(default=False)
+
+
+
+
+
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now = True)
+
+
+    def __str__(self):
+        '''return username '''
+        return self.profile.user.username
+
+
+
+
 '''
     Como hacer insertar registros y hacer busquedas ? 
 

@@ -204,6 +204,7 @@ def consultar_canecas(request):
     }
     return render(request, 'canecas/consultas.html',context)
 
+
 @login_required
 def eliminar_canecas(request, id):
     profile = request.user.profile
@@ -220,20 +221,21 @@ def eliminar_canecas(request, id):
     }
     return redirect('canecas:consultas')
 
+
 from asgiref.sync import async_to_sync
 from channels.layers import get_channel_layer
 
-def test_notification():
-    print("hola ==???")
+
+def send_notification(id):
+
     channel_layer = get_channel_layer()
-    
-    print(channel_layer.group_send)
     async_to_sync(channel_layer.group_send)(
         'notification_broadcast',
         {
             "type": 'send_notification',
-            "message": "Enviando notificacion"
+            "id_notificacion": id
         }
     )
-    return HttpResponse("done caredone")
+    return HttpResponse("Entregado")
+
 
