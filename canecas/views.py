@@ -177,8 +177,6 @@ def entregas(request):
     #profile = request.user.profile
     #'profile': profile,
     context = {
-        
-        'room_name': 'broadcast'
     }
     return render(request, 'canecas/entregas.html',context)
 

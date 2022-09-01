@@ -64,6 +64,7 @@ class NotificationConsumer(AsyncWebsocketConsumer):
         if(usuario.username == notificacion.usuario.username):
             lista.append({
                 'mensaje': notificacion.mensaje,
+                'fecha':   notificacion.broadcast_on.strftime("%d/%m/%Y, %H:%M"),
                 'estado': notificacion.estado
             })
             return json.dumps(lista)

@@ -68,20 +68,23 @@
                             </li>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="nav-link " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" onclick="ocultar_notificacion()">
                                     <svg class="bi login__icon" width="22" height="22" fill="currentColor">
                                         <use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#bell"/>
                                     </svg>
+                                    <div class="notificacion_punto" id="nueva_notificacion">
+                                    </div>
                                 </a>
-                                <ul class="dropdown-menu dropdown-menu-end">
+                                <ul class="dropdown-menu dropdown-menu-end dropdown_notificaciones" id="todas_notificaciones">
                                     {% for notificacion in notificaciones %}
-                                    <li>
+                                    <li class="cuadro_notificacion">
                                         <a class="dropdown-item" href="{% url 'canecas:consultas'%}">
                                            <div class="container row notifications">
                                             <div class="col-md-2">
                                                 <svg class="bi login__icon" width="50" height="50" fill="currentColor">
                                                     <use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#person-circle"/>
                                                 </svg>
+                                                
                                             </div>
                                             <div class="col">
                                                 <p>{{notificacion.mensaje}}</p>
@@ -169,6 +172,36 @@
                     delay: delay
                 });
             }
+            function ocultar_notificacion(){
+                document.getElementById("nueva_notificacion").style.visibility = "hidden"; 
+            }
+            function agregar_notificacion(data){
+
+                var mensaje_notificacion = data[0]['mensaje'];
+                var fecha = data[0]['fecha'];
+                document.getElementById("nueva_notificacion").style.visibility = "visible"; 
+                notificaciones = document.getElementsByClassName('cuadro_notificacion');
+                notificaciones[notificaciones.length -1].remove();
+                var interior_notificaciones = document.getElementById("todas_notificaciones");
+
+                interior_notificaciones.innerHTML = 
+                '<li class="cuadro_notificacion">'+
+                    '<a class="dropdown-item" href="'+ "{% url 'canecas:consultas' %}" + '">'
+                        + '<div class="container row notifications">'+
+                        '<div class="col-md-2">'+
+                            '<svg class="bi login__icon" width="50" height="50" fill="currentColor">'+
+                                '<use xlink:href="'+ "{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}"+'#person-circle"/>'+
+                            '</svg>'+
+                        '</div>'+
+                        '<div class="col">'+
+                            '<p>'+mensaje_notificacion+'</p>'+
+                            '<p class="tiempo_notificaciones">'+fecha+'</p>'+
+                        '</div>'+
+                        '</div>'+
+                    '</a>'+
+                '</li>' + interior_notificaciones.innerHTML;
+            }
+                
         </script>    
         {% if error %}
             <script>
@@ -191,8 +224,7 @@
 
             notificationSocket.onmessage = function(e) {
                 var data = JSON.parse(e.data);
-                console.log(data);
-                //document.querySelector('#chat-log').value += (data.message + '\n');
+                agregar_notificacion(data);
             };
 
             notificationSocket.onclose = function(e) {
