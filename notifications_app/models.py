@@ -22,10 +22,6 @@ class BroadcastNotification(models.Model):
 def notification_handler(sender,instance, created,**kwargs):
     #call group_send function directly to send notifications or crear una tarea dinamica con celery pero no sé como hacer esa mondá
     if created:
-<<<<<<< HEAD
-        views.test_notification()
-=======
         views.send_notification(instance.pk)
->>>>>>> origin/Miller_Hurtado
 
     
