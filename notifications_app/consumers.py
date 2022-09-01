@@ -50,21 +50,22 @@ class NotificationConsumer(AsyncWebsocketConsumer):
     # Receive message from room group
     async def send_notification(self, event):
         #message = event['message']
-        message = "La asincronia se la come entera"
-        
-        notificaciones = await database_sync_to_async(self.obtener_notificaciones_usuario)()
+        #print(event['id_notificacion'])
+        id_notificacion = event['id_notificacion']
+        notificaciones = await database_sync_to_async(self.obtener_notificaciones_usuario)(id_notificacion)
 
-        await self.send(text_data=json.dumps({
-            'message': notificaciones
-        }))
+        await self.send(text_data=notificaciones)
 
-    def obtener_notificaciones_usuario(self):
+    def obtener_notificaciones_usuario(self,id):
         usuario = User.objects.get(username = self.scope["user"])
-        notificaciones = BroadcastNotification.objects.filter(usuario_id = usuario.id)
+        print(usuario.username)
+        notificacion = BroadcastNotification.objects.get(pk = id)
         lista = []
-        for notificacion in notificaciones:
+        if(usuario.username == notificacion.usuario.username):
             lista.append({
                 'mensaje': notificacion.mensaje,
                 'estado': notificacion.estado
             })
-        return json.dumps(lista)
+            return json.dumps(lista)
+        else:
+            return 0

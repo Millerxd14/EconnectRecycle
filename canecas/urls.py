@@ -21,7 +21,7 @@ urlpatterns = [
     path('<int:pk>/', include(router.urls)),
     
     path('mi_caneca/<int:id>/', views.mi_caneca,name='mi_caneca' ),
-    path('test_notification/',views.test_notification,name="notification"),
+    path('test_notification/',views.send_notification,name="notification"),
     path('entregas/',views.entregas, name='entregas'),
     path('consultas/',views.consultar_canecas, name='consultas'),
 ]

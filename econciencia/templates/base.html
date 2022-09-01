@@ -74,6 +74,7 @@
                                     </svg>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
+                                    {% for notificacion in notificaciones %}
                                     <li>
                                         <a class="dropdown-item" href="{% url 'canecas:consultas'%}">
                                            <div class="container row notifications">
@@ -83,7 +84,7 @@
                                                 </svg>
                                             </div>
                                             <div class="col">
-                                                <p>Hay una persona cerca con n kg de cocaina pura y dura mamabicho</p>
+                                                <p>{{notificacion.mensaje}}</p>
                                                 <p class="tiempo_notificaciones">hace una semana</p>
                                             </div>
                                             
@@ -91,24 +92,7 @@
                                             
                                         </a>
                                     </li>
-
-                                    <li>
-                                        <a class="dropdown-item" href="{% url 'canecas:consultas'%}">
-                                           <div class="container row notifications">
-                                            <div class="col-md-2">
-                                                <svg class="bi login__icon" width="50" height="50" fill="currentColor">
-                                                    <use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#person-circle"/>
-                                                </svg>
-                                            </div>
-                                            <div class="col">
-                                                Hola mundo
-                                                <p class="tiempo_notificaciones">hace una semana</p>
-                                            </div>
-                                            
-                                           </div>
-                                            
-                                        </a>
-                                    </li>
+                                    {%endfor%}
                                     <li>
                                         <div class="container ver_todas">
                                             <a href=""> Ver todas... </a>
@@ -296,11 +280,9 @@
             );
 
             notificationSocket.onmessage = function(e) {
-                var data = e.data;
+                var data = JSON.parse(e.data);
                 console.log(data);
-                //data = data.replace('',"u\'");
-                data = data.replace('\\"',"");
-                console.log(data);
+                
                 //document.querySelector('#chat-log').value += (data.message + '\n');
             };
 
