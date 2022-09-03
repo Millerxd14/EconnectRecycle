@@ -28,7 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'miller.datawifi.co',
     '127.0.0.1',
-    '192.168.0.13',
+    '192.168.0.14',
     '192.168.0.2',
 ]
 
