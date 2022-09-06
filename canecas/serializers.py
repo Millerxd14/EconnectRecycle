@@ -1,5 +1,5 @@
 
-from .models import Caneca
+from canecas.models import Caneca
 from rest_framework import serializers
 
 

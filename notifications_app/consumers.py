@@ -15,8 +15,6 @@ class NotificationConsumer(AsyncWebsocketConsumer):
         #self.scope["session"]["seed"] = random.randint(1, 1000)
         self.room_name = self.scope['url_route']['kwargs']['room_name']
         self.room_group_name = 'notification_%s' % self.room_name
-
-        print(self.room_group_name)
         
         # Join room group
         await self.channel_layer.group_add(
@@ -58,10 +56,9 @@ class NotificationConsumer(AsyncWebsocketConsumer):
 
     def obtener_notificaciones_usuario(self,id):
         usuario = User.objects.get(username = self.scope["user"])
-        print(usuario.username)
         notificacion = BroadcastNotification.objects.get(pk = id)
         lista = []
-        if(usuario.username == notificacion.usuario.username):
+        if(usuario.username == notificacion.usuario_propietario.username):
             lista.append({
                 'mensaje': notificacion.mensaje,
                 'fecha':   notificacion.broadcast_on.strftime("%d/%m/%Y, %H:%M"),
