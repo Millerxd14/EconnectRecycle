@@ -24,14 +24,13 @@ class Profile(models.Model):
     is_productor = models.BooleanField(default=False)
 
     dni = models.CharField(max_length=20)
+    update_counter = models.IntegerField(default=0)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now = True)
-
 
     def __str__(self):
         '''return username '''
         return self.user.username
-
 
 
 class Info_Recolector(models.Model):
@@ -56,12 +55,9 @@ class Info_Recolector(models.Model):
     metal_price = models.BigIntegerField(default=False)
 
 
-
-
-
+    #metadata
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now = True)
-
 
     def __str__(self):
         '''return username '''

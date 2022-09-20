@@ -1,3 +1,4 @@
+from email.policy import default
 from django import forms
 from django.contrib.auth.models import User
 from django.core import validators
@@ -87,8 +88,7 @@ class SingUpForm(forms.Form):
 
 
 class ProfileForm(forms.Form):
-    phone_number = forms.CharField(max_length=20,required=True)
-    direction = forms.CharField(max_length=100, required=True)
+    
     tipos_documento = [
         ('0', 'Tipo de persona'),
         ('1', 'Natural'),
@@ -98,7 +98,36 @@ class ProfileForm(forms.Form):
         widget=forms.Select,
         choices=tipos_documento)
 
-
     profile_picture = forms.ImageField(required=False)
-    company_name = forms.CharField(max_length=30)
     dni = forms.CharField(max_length=20)
+    phone_number = forms.CharField(max_length=20,required=True)
+    direction = forms.CharField(max_length=100, required=True)
+
+    
+    company_name = forms.CharField(max_length=30)
+
+
+class AdvanceProfileForm(forms.Form):
+    description = forms.TextInput()
+
+    plastic = forms.IntegerField()
+    plastic_price = forms.IntegerField()
+
+
+    cardboard = forms.IntegerField()
+    cardboard_price = forms.IntegerField()
+
+
+    paper = forms.IntegerField()
+    paper_price = forms.IntegerField()
+
+
+    glass = forms.IntegerField()
+    glass_price = forms.IntegerField()
+
+    trash = forms.IntegerField()
+    trash_price = forms.IntegerField()
+
+    metal = forms.IntegerField()
+    metal_price = forms.IntegerField()
+

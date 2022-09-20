@@ -45,5 +45,10 @@ urlpatterns = [
         view = views.productores, 
         name='productores'
     ),
+    path(
+        route='formulario_recolectores',
+        view=views.advance_update_profile,
+        name="formulario_recolectores"
+    ),
 
 ]

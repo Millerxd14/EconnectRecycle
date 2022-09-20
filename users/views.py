@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 
 #forms 
 
-from users.forms import ProfileForm, SingUpForm
+from users.forms import ProfileForm, SingUpForm, AdvanceProfileForm
 from users.models import Profile
 
 # except careverga
@@ -67,8 +67,17 @@ def recuperar_contrasena(request):
 def update_profile(request):
     #import pdb;pdb.set_trace()
     profile = request.user.profile
+
     if request.method == 'POST':
+
         form = ProfileForm(request.POST, request.FILES)
+        
+        if profile.update_counter == 1:
+            updated_request = request.POST.copy()
+            updated_request.update({'person_type': profile.person_type})
+            updated_request.update({'dni': profile.dni})
+            form = ProfileForm(updated_request, request.FILES)
+
         if form.is_valid():
             data = form.cleaned_data
             profile.company_name = data['company_name']
@@ -82,14 +91,29 @@ def update_profile(request):
 
     else:
         form = ProfileForm()
+        if(profile.is_collector == 1):
+            form_advance = AdvanceProfileForm(request.POST)
+        else:
+            form_advance = ''
+    bandera = 0
+    if(profile.update_counter == 1):
+        bandera = 1
 
     return render(request, 'users/actualizar_perfil.html',{
         'profile': profile,
         'user': request.user,
-        'form': form
+        'form': form,
+        'form_advance': form_advance,
+        'bandera': bandera
     })
 
-
+def advance_update_profile(request):
+    if request.method == 'POST':
+        form_advance = AdvanceProfileForm(request.POST)
+        if form_advance.is_valid():
+            print("Es valido")
+        
+        return redirect('users:actualizar_perfil')
 
 @login_required
 def recolectores(request):
