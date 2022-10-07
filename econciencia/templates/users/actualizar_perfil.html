@@ -39,7 +39,7 @@
                         </div>
                         
                         <div>
-                            <p><strong> @{{user.username}} | {{user.get_full_name}} </strong></p> 
+                            <p><strong> @{{user.username}} | {{user.get_full_name}}</strong></p> 
                         </div>
                         
                     </div>
@@ -107,9 +107,7 @@
             <div class="row mb-3">
                 <div class="col-md-12">
                     <label for="description"><strong> Describe tu compañía </strong></label>
-                    <textarea class="form-control" name="description" id="description" cols="30" rows="10">
-
-                    </textarea>
+                    <textarea class="form-control" name="description" id="description" placeholder="Escribe una descripción que te represente" cols="30" rows="10">{{info_recolector.description}}</textarea>
                 </div>
             </div>
             <!--Plastico-->
@@ -118,12 +116,12 @@
                     
                     <label for="plastic"><strong>¿ Reciclas plastico ?</strong></label>
                     <select class="form-control" name="plastic" id="plastic">
-                        <option value=2>Seleccione</option>
+                        <option>Seleccione</option>
                         <option value=1>Si</option>
                         <option value=0>No</option>
                     </select>
-                    <label for="plastic">¿ A que precio ?</label>
-                    <input class="form-control" type="number" name="plastic_price" id="plastic_price">
+                    <label for="plastic">Si tu respuesta es si por favor indica el precio por kilo</label>
+                    <input class="form-control" type="number" name="plastic_price" id="plastic_price" value="{{info_recolector.plastic_price}}">
 
                 </div>
             </div>
@@ -133,12 +131,12 @@
                     
                     <label for="cardboard"><strong>¿ Reciclas cartón ?</strong></label>
                     <select class="form-control" name="cardboard" id="cardboard">
-                        <option value=2>Seleccione</option>
+                        <option>Seleccione</option>
                         <option value=1>Si</option>
                         <option value=0>No</option>
                     </select>
-                    <label for="cardboard_price">¿ A que precio ?</label>
-                    <input class="form-control" type="number" name="cardboard_price" id="cardboard_price">
+                    <label for="cardboard_price">Si tu respuesta es si por favor indica el precio por kilo</label>
+                    <input class="form-control" type="number" name="cardboard_price" id="cardboard_price" value="{{info_recolector.cardboard_price}}">
 
                 </div>
             </div>
@@ -148,12 +146,12 @@
                     
                     <label for="paper"><strong>¿ Reciclas papel ?</strong></label>
                     <select class="form-control" name="paper" id="paper">
-                        <option value=2>Seleccione</option>
+                        <option>Seleccione</option>
                         <option value=1>Si</option>
                         <option value=0>No</option>
                     </select>
-                    <label for="paper_price">¿ A que precio ?</label>
-                    <input class="form-control" type="number" name="paper_price" id="paper_price">
+                    <label for="paper_price">Si tu respuesta es si por favor indica el precio por kilo</label>
+                    <input class="form-control" type="number" name="paper_price" id="paper_price" value="{{info_recolector.paper_price}}">
 
                 </div>
             </div>
@@ -164,12 +162,12 @@
                     
                     <label for="glass"><strong>¿ Reciclas Vidrio ?</strong></label>
                     <select class="form-control" name="glass" id="glass">
-                        <option value=2>Seleccione</option>
+                        <option>Seleccione</option>
                         <option value=1>Si</option>
                         <option value=0>No</option>
                     </select>
-                    <label for="glass_price">¿ A que precio ?</label>
-                    <input class="form-control" type="number" name="glass_price" id="glass_price">
+                    <label for="glass_price">Si tu respuesta es si por favor indica el precio por kilo</label>
+                    <input class="form-control" type="number" name="glass_price" id="glass_price" value="{{info_recolector.glass_price}}">
 
                 </div>
             </div>
@@ -180,12 +178,12 @@
                     
                     <label for="trash"><strong>¿ Reciclas Basura ?</strong></label>
                     <select class="form-control" name="trash" id="trash">
-                        <option value=2>Seleccione</option>
+                        <option>Seleccione</option>
                         <option value=1>Si</option>
                         <option value=0>No</option>
                     </select>
-                    <label for="trash_price">¿ A que precio ?</label>
-                    <input class="form-control" type="number" name="trash_price" id="trash_price">
+                    <label for="trash_price">Si tu respuesta es si por favor indica el precio por kilo</label>
+                    <input class="form-control" type="number" name="trash_price" id="trash_price" value="{{info_recolector.trash_price}}">
 
                 </div>
             </div>
@@ -196,12 +194,12 @@
                     
                     <label for="metal"><strong>¿ Reciclas metal ?</strong></label>
                     <select class="form-control" name="metal" id="metal">
-                        <option value=2>Seleccione</option>
+                        <option >Seleccione</option>
                         <option value=1>Si</option>
                         <option value=0>No</option>
                     </select>
-                    <label for="metal_price">¿ A que precio ?</label>
-                    <input class="form-control" type="number" name="metal_price" id="metal_price">
+                    <label for="metal_price">Si tu respuesta es si por favor indica el precio por kilo</label>
+                    <input class="form-control" type="number" name="metal_price" id="metal_price" value="{{info_recolector.metal_price}}">
 
                 </div>
             </div>
@@ -263,9 +261,9 @@
 {% endblock %}
 {% block javascripts %}
  {{block.super}}
-    {% if form.errors  or form_advance.errors %}
+    {% if form.errors %}
     {{ form.errors|json_script:"errores" }}
-    {{ form_advance.errors|json_script:"errores_recolector" }}
+    
         <script>
             var errores = JSON.parse(document.getElementById('errores').textContent);
             var errores_recolector = JSON.parse(document.getElementById('errores_recolector').textContent);
@@ -274,6 +272,16 @@
                 
                 consolidado += `${error}:\n\t ${errores[error]}\n`;
             }
+            send_notification( 'error','Error',consolidado,'3000')
+    </script>
+    {% endif %}
+
+    {% if form_advance.errors  or form_advance.errors %}
+    {{ form_advance.errors|json_script:"errores_recolector" }}
+        <script>
+            var errores = JSON.parse(document.getElementById('errores').textContent);
+            var errores_recolector = JSON.parse(document.getElementById('errores_recolector').textContent);
+            var consolidado = "";
             for (const error in errores_recolector) {
                 
                 consolidado += `${error}:\n\t ${errores_recolector[error]}\n`;

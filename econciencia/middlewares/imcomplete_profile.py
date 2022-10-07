@@ -16,7 +16,7 @@ class ProfileCompletionMiddleware:
             profile = request.user.profile
             if not profile.person_type:
                 if request.path not in [ reverse('users:actualizar_perfil'), reverse('users:logout')]:
-                
+                    bandera = 0
                     return render(request, 'users/actualizar_perfil.html', {
                         'profile': profile,
                         'user': request.user,
@@ -25,7 +25,8 @@ class ProfileCompletionMiddleware:
                             'titulo':'Advertencia',
                             'texto':'Para poder continuar con la experiencia lo invitamos a completar su perfil',
                             'tiempo':'5000',
-                        }
+                        },
+                        'bandera': bandera
                     })
         response = self.get_response(request)
         return response

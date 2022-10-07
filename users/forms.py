@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.core import validators
 from django.contrib.auth.password_validation import validate_password
 
-from users.models import Profile
+from users.models import Info_Recolector, Profile
 
 class SingUpForm(forms.Form):
     username = forms.CharField(min_length=4, max_length=50)
@@ -73,18 +73,14 @@ class SingUpForm(forms.Form):
         data.pop('password_confirmation')
         is_collector = data['is_collector']
         is_productor = data['is_productor']
+
         data.pop('is_collector')
         data.pop('is_productor')
         data.pop('tipo_usuario')
         user = User.objects.create_user(**data)
         profile = Profile(user = user, is_collector = is_collector, is_productor = is_productor)
+
         profile.save()
-
-
-
-
-
-
 
 
 class ProfileForm(forms.Form):
@@ -108,26 +104,54 @@ class ProfileForm(forms.Form):
 
 
 class AdvanceProfileForm(forms.Form):
-    description = forms.TextInput()
+
+
+    description = forms.Textarea()
 
     plastic = forms.IntegerField()
-    plastic_price = forms.IntegerField()
+    plastic_price = forms.IntegerField(required=False)
 
 
     cardboard = forms.IntegerField()
-    cardboard_price = forms.IntegerField()
+    cardboard_price = forms.IntegerField(required=False)
 
 
     paper = forms.IntegerField()
-    paper_price = forms.IntegerField()
+    paper_price = forms.IntegerField(required=False)
 
 
     glass = forms.IntegerField()
-    glass_price = forms.IntegerField()
+    glass_price = forms.IntegerField(required=False)
 
     trash = forms.IntegerField()
-    trash_price = forms.IntegerField()
+    trash_price = forms.IntegerField(required=False)
 
     metal = forms.IntegerField()
-    metal_price = forms.IntegerField()
+    metal_price = forms.IntegerField(required=False)
+
+    def save(self,profile):
+        '''create or update a info_recolector'''
+        
+        data = self.cleaned_data
+        existe = Info_Recolector.objects.get(profile = profile)
+        print(existe)
+        if existe:
+            existe.description       = data['description']
+            existe.plastic           = data['plastic']
+            existe.plastic_price     = data['plastic_price']
+            existe.cardboard         = data['cardboard']
+            existe.cardboard_price   = data['cardboard_price']
+            existe.paper             = data['paper']
+            existe.paper_price       = data['paper_price']
+            existe.glass             = data['glass']
+            existe.glass_price       = data['glass_price']
+            existe.trash             = data['trash']
+            existe.metal             = data['metal']
+            existe.metal_price       = data['metal_price']
+            existe.save()
+
+        else:
+            info_recolector = Info_Recolector(**data)
+            info_recolector.profile = profile
+            info_recolector.save()
 

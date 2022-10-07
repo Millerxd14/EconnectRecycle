@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 #forms 
 
 from users.forms import ProfileForm, SingUpForm, AdvanceProfileForm
-from users.models import Profile
+from users.models import Info_Recolector, Profile
 
 # except careverga
 from django.db.utils import IntegrityError
@@ -52,7 +52,7 @@ def singup(request):
         form = SingUpForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('users:login')
+            return redirect('home')
     else: 
         form = SingUpForm()
 
@@ -66,8 +66,8 @@ def recuperar_contrasena(request):
 
 def update_profile(request):
     #import pdb;pdb.set_trace()
-    profile = request.user.profile
-
+    profile = request.user.profile   
+    form_advance = ''
     if request.method == 'POST':
 
         form = ProfileForm(request.POST, request.FILES)
@@ -92,26 +92,36 @@ def update_profile(request):
     else:
         form = ProfileForm()
         if(profile.is_collector == 1):
-            form_advance = AdvanceProfileForm(request.POST)
-        else:
-            form_advance = ''
+            form_advance = AdvanceProfileForm(request.POST)         
+    
+    if(profile.is_collector == 1):
+            info_recolector = Info_Recolector.objects.get(profile = profile)
+    else:
+        info_recolector = ''
+        
     bandera = 0
     if(profile.update_counter == 1):
         bandera = 1
-
     return render(request, 'users/actualizar_perfil.html',{
         'profile': profile,
+        'info_recolector':info_recolector,
         'user': request.user,
         'form': form,
         'form_advance': form_advance,
         'bandera': bandera
     })
 
+
+@login_required
 def advance_update_profile(request):
+    profile = request.user.profile
     if request.method == 'POST':
         form_advance = AdvanceProfileForm(request.POST)
+        #import pdb;pdb.set_trace()
         if form_advance.is_valid():
-            print("Es valido")
+            
+            form_advance.save(profile)
+            return redirect( 'users:actualizar_perfil' )
         
         return redirect('users:actualizar_perfil')
 
