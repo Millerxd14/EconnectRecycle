@@ -1,3 +1,4 @@
+from email.policy import default
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
@@ -13,7 +14,10 @@ class BroadcastNotification(models.Model):
     tipo = models.CharField(max_length=25,default="0")
     usuario_propietario = models.ForeignKey(User, on_delete=models.CASCADE, related_name="propietario", null=True)
     usuario_enviador = models.ForeignKey(User, on_delete=models.CASCADE,related_name="remitente", null=True)
+    
     estado = models.CharField(max_length=25,default="0")
+    direccion = models.CharField(max_length=25,default='caneca')
+    
     class Meta():
         ordering = ['-broadcast_on']
 

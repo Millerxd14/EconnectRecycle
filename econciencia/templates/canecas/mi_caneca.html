@@ -21,9 +21,6 @@
         </div>
     </div>
     <div class="col-6 d-flex flex-column justify-content-center align-items-center estadisticas">
-        <button type="button" class="mb-5 align-self-center botonmodal" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Buscar Caneca
-        </button>
         <div class=" mb-5 p-2 align-self-center estado">
             <div class="triangulo"></div>
             <div class="triangulo1"></div>
@@ -31,45 +28,6 @@
         <figure class="mb-5 p-2 align-self-center highcharts-figure">
             <div id="container"></div>
         </figure>
-    </div>
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class=" modal-header">
-                    <h5 class="col-md-10 text-center modal-title " id="exampleModalLabel">Agrega tu Caneca</h5>
-                    <button type="button" class="btn-close  btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form method="post" action="{% url 'canecas:consultas' %}">
-                    {% csrf_token %}
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="user" class="col-form-label">Usuario:</label>
-                            <input type="text" class="form-control" name="user" id="user" value ="{{ request.user.username}}" readonly>
-                        </div>
-                        <div class="mb-3">
-                            <label for="name" class="col-form-label">Nombre:</label>
-                            <input type="text" class="form-control" name="name" id="name" placeholder="Nombre caneca">
-                        </div>
-                        <div class="mb-3">
-                            <label for="description" class="col-form-label">Descripción:</label>
-                            <input type="text" class="form-control" name="description" id="description" placeholder="Descripción caneca">
-                        </div>
-                        <div class="mb-3">
-                            <label for="mac" class="col-form-label">MAC:</label>
-                            <input type="text" class="form-control" id="mac" name = "mac" placeholder="Mac de la caneca">
-                        </div>
-                        <div class="mb-3">
-                            <label for="direction" class="col-form-label">Ubicación:</label>
-                            <input type="text" class="form-control" id="direction" name = "direction" placeholder="Dirección Caneca">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Enviar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
     </div>
 </div>    
 {% endblock %}

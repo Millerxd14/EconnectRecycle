@@ -1,9 +1,9 @@
 
 #django
 from pprint import pprint
-from django.shortcuts import get_object_or_404, render, redirect, HttpResponse
+from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
-
+from django.http import JsonResponse
 
 #Api libraries
 from rest_framework.response import Response
@@ -17,6 +17,7 @@ from canecas.serializers import CanecaSerializer
 
 #models
 
+from django.contrib.auth.models import User
 from canecas.models import Caneca
 from canecas.forms import CreateCaneca
 from canecas.script_ia import model_ia
@@ -193,7 +194,7 @@ def consultar_canecas(request):
     else:
         form = CreateCaneca()
     #user = request.user
-    canecas_user = Caneca.objects.all()
+    canecas_user = Caneca.objects.filter(user = request.user)
     
     context = {
         'profile': profile,
@@ -219,6 +220,24 @@ def eliminar_canecas(request, id):
     }
     return redirect('canecas:consultas')
 
-
+@login_required
+def buscar_canecas(request,id_usuario):
+    usuario = User.objects.get(id = id_usuario)
+    canecas = Caneca.objects.filter(user = usuario)
+    data = {}
+    i= 0
+    for caneca in canecas:
+        data[i] = {
+            'name': caneca.name, 
+            'description': caneca.description,
+            'plastic'       : caneca.plastic,
+            'glass'        : caneca.glass,
+            'metal'        : caneca.metal,
+            'cardboard'    : caneca.cardboard,
+            'trash'        : caneca.trash,
+            'paper'        : caneca.paper
+        }
+        i = i+1
+    return JsonResponse(data)
 
 

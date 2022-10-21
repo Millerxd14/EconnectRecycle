@@ -12,9 +12,9 @@
     
     <!-- links estilos de notificaciones -->
     <link href="{% static '/js/node_modules/@pnotify/core/dist/PNotify.css' %}" rel="stylesheet"> 
-    <link href="{% static '/js/node_modules/@pnotify/core/dist/BrightTheme.css' %}" rel="stylesheet"> 
     <link href="{% static '/js/node_modules/@pnotify/bootstrap4/dist/PNotifyBootstrap4.css' %}" rel="stylesheet">
     <link href="{% static 'css/custom.css' %}" rel="stylesheet"> 
+    <link rel="stylesheet" href="{% static 'css/bootstrap-icons/bootstrap-icons.css'%}">
     {% block scripts_header %}
         
     {% endblock scripts_header %}
@@ -28,11 +28,11 @@
                 
                 <div class="container-fluid">
                     <div>
-                        <a href="{% url 'home' %}" class="navbar-brand"> 
-                            <img src="{% static 'images/logo.png'%}" class="navbar-logo" >
+                        <a  href="{% url 'home' %}" class="navbar-brand"> 
+                            <img id="logo" src="{% static 'images/logo.png'%}" class="navbar-logo" >
                         </a>
-                        <a href="{% url 'home' %}" class="navbar-brand"> 
-                            <img src="{% static 'images/type_logo.png'%}" class="navbar-type">
+                        <a  href="{% url 'home' %}" class="navbar-brand"> 
+                            <img id= "letras_logo" src="{% static 'images/type_logo.png'%}" class="navbar-type">
                         </a>
                     </div>
                     <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#MenuNavegacion">
@@ -64,7 +64,7 @@
                     
                         {% else %}
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'canecas:consultas'%}">Caneca</a>
+                                <a class="nav-link" href="{% url 'canecas:consultas'%}">Canecas</a>
                             </li>
                             </li>
                             <li class="nav-item dropdown">
@@ -78,7 +78,7 @@
                                 <ul class="dropdown-menu dropdown-menu-end dropdown_notificaciones" id="todas_notificaciones">
                                     {% for notificacion in notificaciones %}
                                     <li class="cuadro_notificacion">
-                                        <a class="dropdown-item" href="{% url 'canecas:consultas'%}">
+                                        <a class="dropdown-item" href="{% url notificacion.direccion %}">
                                            <div class="container row notifications">
                                             <div class="col-md-2">
                                                 <svg class="bi login__icon" width="50" height="50" fill="currentColor">
@@ -89,6 +89,7 @@
                                             <div class="col">
                                                 <p>{{notificacion.mensaje}}</p>
                                                 <p class="tiempo_notificaciones">{{notificacion.broadcast_on|date:"d/m/Y, H:m"}}</p>
+                                                <p></p>
                                             </div>
                                             
                                            </div>
@@ -117,7 +118,25 @@
                                      {{user.username}}
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
+                                    
                                     <li><a class="dropdown-item" href="{% url 'posts:latest_posts'%}">¿Como reciclar?</a></li>
+
+                                    {% if profile.is_collector == 1 %}
+                                        <li><a class="dropdown-item" href="{% url 'users:productores'%}">
+                                            Productores
+                                            <svg class="bi login__icon" width="16" height="16" fill="currentColor">
+                                                <use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#trash-fill"/>
+                                            </svg>
+                                        </a></li>
+                                    {% else %}
+                                        <li><a class="dropdown-item" href="{% url 'users:recolectores'%}">
+                                            Recolectores
+                                            <svg class="bi login__icon" width="16" height="16" fill="currentColor">
+                                                <use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#building"/>
+                                            </svg>
+                                        </a></li>
+
+                                    {% endif %}
                                     <li><a class="dropdown-item" href="{% url 'users:actualizar_perfil'%}">
                                         Configuración
                                         <svg class="bi login__icon" width="16" height="16" fill="currentColor">
@@ -152,6 +171,7 @@
     </footer>
     {% block stylesheets %}
     <link rel="stylesheet" href="{% static 'css/base.css'%}">
+    
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
     {% endblock%}
 
@@ -169,7 +189,7 @@
                     type: type,
                     title: tittle,
                     text: text,
-                    delay: delay
+                    delay: delay,
                 });
             }
             function ocultar_notificacion(){
@@ -179,14 +199,21 @@
 
                 var mensaje_notificacion = data[0]['mensaje'];
                 var fecha = data[0]['fecha'];
+
+                var direccion = '';
+                if(data[0]['direccion'] == 'canecas:consultas'){
+                    direccion = "{% url 'canecas:consultas' %}"
+                }else if(data[0]['direccion'] == 'users:productores'){
+                    direccion = "{% url 'users:productores' %}"
+                }
+                direccion = direccion.replaceAll('!', '%');
                 document.getElementById("nueva_notificacion").style.visibility = "visible"; 
                 notificaciones = document.getElementsByClassName('cuadro_notificacion');
                 notificaciones[notificaciones.length -1].remove();
                 var interior_notificaciones = document.getElementById("todas_notificaciones");
-
                 interior_notificaciones.innerHTML = 
                 '<li class="cuadro_notificacion">'+
-                    '<a class="dropdown-item" href="'+ "{% url 'canecas:consultas' %}" + '">'
+                    '<a class="dropdown-item" href="'+ direccion + '">'
                         + '<div class="container row notifications">'+
                         '<div class="col-md-2">'+
                             '<svg class="bi login__icon" width="50" height="50" fill="currentColor">'+

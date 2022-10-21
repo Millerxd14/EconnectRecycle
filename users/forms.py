@@ -1,4 +1,5 @@
 from email.policy import default
+from typing_extensions import Required
 from django import forms
 from django.contrib.auth.models import User
 from django.core import validators
@@ -79,8 +80,10 @@ class SingUpForm(forms.Form):
         data.pop('tipo_usuario')
         user = User.objects.create_user(**data)
         profile = Profile(user = user, is_collector = is_collector, is_productor = is_productor)
-
         profile.save()
+        if(is_collector == 1):
+            info_recolector = Info_Recolector(profile = profile)
+            info_recolector.save()
 
 
 class ProfileForm(forms.Form):
@@ -106,27 +109,27 @@ class ProfileForm(forms.Form):
 class AdvanceProfileForm(forms.Form):
 
 
-    description = forms.Textarea()
+    description = forms.CharField(widget=forms.Textarea, required=True)
 
-    plastic = forms.IntegerField()
+    plastic = forms.IntegerField(required=True)
     plastic_price = forms.IntegerField(required=False)
 
 
-    cardboard = forms.IntegerField()
+    cardboard = forms.IntegerField(required=True)
     cardboard_price = forms.IntegerField(required=False)
 
 
-    paper = forms.IntegerField()
+    paper = forms.IntegerField(required=True)
     paper_price = forms.IntegerField(required=False)
 
 
-    glass = forms.IntegerField()
+    glass = forms.IntegerField(required=True)
     glass_price = forms.IntegerField(required=False)
 
-    trash = forms.IntegerField()
+    trash = forms.IntegerField(required=True)
     trash_price = forms.IntegerField(required=False)
 
-    metal = forms.IntegerField()
+    metal = forms.IntegerField(required=True)
     metal_price = forms.IntegerField(required=False)
 
     def save(self,profile):

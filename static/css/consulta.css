@@ -92,3 +92,8 @@ h5{
 .texto_derecha{
     text-align: right;
 }
+
+.lista_residuos{
+    text-align: left;
+    font-size: 15px;
+}

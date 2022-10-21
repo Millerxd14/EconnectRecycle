@@ -50,7 +50,8 @@ def notification_handler(sender,instance, created,**kwargs):
             estado = 0, 
             broadcast_on= date.today(), 
             usuario_propietario = usuario_defatult, 
-            usuario_enviador=usuario_defatult
+            usuario_enviador=usuario_defatult,
+            direccion = 'canecas:consultas'
         )
         notificacion.save()
     if(caneca.glass >= 80 ):
@@ -60,7 +61,8 @@ def notification_handler(sender,instance, created,**kwargs):
             estado = 0, 
             broadcast_on= date.today(), 
             usuario_propietario = usuario_defatult, 
-            usuario_enviador=usuario_defatult
+            usuario_enviador=usuario_defatult,
+            direccion = 'canecas:consultas'
         )
         notificacion.save()
     if(caneca.metal >= 80 ):
@@ -70,7 +72,8 @@ def notification_handler(sender,instance, created,**kwargs):
             estado = 0, 
             broadcast_on= date.today(), 
             usuario_propietario = usuario_defatult, 
-            usuario_enviador=usuario_defatult
+            usuario_enviador=usuario_defatult,
+            direccion = 'canecas:consultas'
         )
         notificacion.save()
     if(caneca.paper >= 80 ):
@@ -80,7 +83,8 @@ def notification_handler(sender,instance, created,**kwargs):
             estado = 0, 
             broadcast_on= date.today(), 
             usuario_propietario = usuario_defatult, 
-            usuario_enviador=usuario_defatult
+            usuario_enviador=usuario_defatult,
+            direccion = 'canecas:consultas'
         )
         notificacion.save()
     if(caneca.plastic >= 80 ):
@@ -90,7 +94,8 @@ def notification_handler(sender,instance, created,**kwargs):
             estado = 0, 
             broadcast_on= date.today(), 
             usuario_propietario = usuario_defatult, 
-            usuario_enviador=usuario_defatult
+            usuario_enviador=usuario_defatult,
+            direccion = 'canecas:consultas'
         )
         notificacion.save()
     if(caneca.trash >= 80 ):
@@ -100,7 +105,8 @@ def notification_handler(sender,instance, created,**kwargs):
             estado = 0, 
             broadcast_on= date.today(), 
             usuario_propietario = usuario_defatult, 
-            usuario_enviador=usuario_defatult
+            usuario_enviador=usuario_defatult,
+            direccion = 'canecas:consultas'
         )
         notificacion.save()
 

@@ -50,5 +50,20 @@ urlpatterns = [
         view=views.advance_update_profile,
         name="formulario_recolectores"
     ),
+    path(
+        route='buscar_recolector',
+        view=views.buscar_recolector,
+        name = 'buscar_recolector'
+    ),
+    path(
+        route='aceptar_recolector/<int:id_info>',
+        view=views.aceptar_recolector,
+        name = 'aceptar_recolector'
+    ),
+    path(
+        route='aceptar_productor/<int:id>',
+        view=views.aceptar_productor,
+        name = 'aceptar_productor'
+    ),
 
 ]

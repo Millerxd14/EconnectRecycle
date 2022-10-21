@@ -27,19 +27,23 @@ body{
 }
 .btn{
     font-size: medium;
+    color: white;
 }
 
 .btn-primary:hover{
     background-color: #FF8B57;
     border-color:#FF8B57
 }
+
+
+
 ul,ol{
     font-family: 'Raleway';
     font-size: 22px;
     font-weight: 100px;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 890px) {
     .navbar-type {
         display: inline-block;
         vertical-align: middle;
@@ -51,6 +55,14 @@ ul,ol{
         margin-right: 5px;
         margin-top: 5px;
         margin-bottom: 5px;
+    }
+    #letras_logo{
+        width: 45%;
+        visibility: visible;
+    }
+    #logo{
+        width: 45px;
+        height: 45px;
     }
 }
 @media screen and (min-width: 1024px) {
@@ -67,7 +79,7 @@ ul,ol{
         margin-bottom: 5px;
     }
 }
-@media screen and (min-width: 300px) {
+@media screen and (max-width: 500px) {
     /* .navbar-type {
         display: inline-block;
         vertical-align: middle;
@@ -79,6 +91,10 @@ ul,ol{
         margin-right: 5px;
         margin-top: 5px;
         margin-bottom: 5px;
+    }
+    #letras_logo{
+        visibility: hidden;
+        width: 0px;
     }
 }
 .gradient_nav{
@@ -137,4 +153,11 @@ ul,ol{
     top: 15px;
     right: 8px;
     visibility: hidden;
+}
+
+
+.pnotify-closer::after{
+    font-family: "bootstrap-icons";
+    content: "\F623";
+    color: white;
 }

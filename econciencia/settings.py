@@ -66,6 +66,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'econciencia.middlewares.imcomplete_profile.ProfileCompletionMiddleware'
 
 ]
@@ -128,7 +129,14 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+#LANGUAGE_CODE = 'en-us'
+gettext = lambda x: x
+
+LANGUAGE_CODE = 'es-CO'
+LANGUAGES = (
+    ('es', gettext('Spanish')),
+)
+
 
 TIME_ZONE = 'Brazil/Acre'
 

@@ -64,6 +64,21 @@ class Info_Recolector(models.Model):
         return self.profile.user.username
 
 
+class VProductorRecolector(models.Model):
+    productor = models.ForeignKey(User, on_delete=models.CASCADE, related_name="productor_v", null=True)
+    recolector = models.ForeignKey(User, on_delete=models.CASCADE, related_name="recolector_v", null=True)
+
+
+    autoriza_recolector = models.CharField(max_length=1)
+    autoriza_productor = models.CharField(max_length=1)
+
+    #metadata
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now = True)
+    class Meta:
+        unique_together = ('productor', 'recolector',)
+
+
 
 
 '''

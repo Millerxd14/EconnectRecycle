@@ -3,107 +3,79 @@
 
 {% block body %}
 
-<!-- <div class="m-5  d-flex justify-content-center row completo">
-    <table id="example" class="table  table-bordered table-responsive caption-top" >
-        <caption>Lista de Recolectores</caption>
-        <thead class="table-otro">
-            <th class="text-center" scope="col">Nombre</th>
-            <th class="text-center" scope="col">Zona</th>
-            <th class="text-center" scope="col">Aceptar</th>
-        </thead>
-        <tbody>
-            {% for recolector in recolectores %}
-                <td><button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#exampleModal"> nnn {{recolector.nombre}}</button></td>
-                <td>{{recolector.zona}}</td>
-                <td class="text-center">
-                    <button type="button" class="btn btn-primary m-0">Aceptar</button>
-                    <button type="button" class="btn btn-primary m-0">Rechazar</button>
-                </td>
-            {% endfor %}
-        </tbody>
-    </table>
-</div> -->
-
 <div class="container mt-5">
-    <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+    <form id = "busqueda_recolectores" class="d-flex" role="search" action="{% url 'users:buscar_recolector'%}">
+        <input name = "texto_usuario" class="form-control me-2" type="search" placeholder="Nombre de compañia" aria-label="Search">
+        <select class="form-control me-1" name="residuo" id="residuo">
+            <option value = 0 selected>Seleccione el residuo a buscar</option>
+            <option value="plastic">Plastico</option>
+            <option value="glass">Vidrio</option>
+            <option value="metal">Metal</option>
+            <option value="cardboard">Cartón</option>
+            <option value="trash">Organicos</option>
+            <option value="paper">Papel</option>
+        </select>
         <button class="btn btn-primary" type="submit">Buscar</button>
     </form>
 </div>
 
 <div class="container">
-    <div class="row mt-3">
+    <div class="row mt-3" id="recolectores">
         {% for recolector in recolectores %}
         <div class="col-12 col-sm-12 col-md-4 mb-2">
-            <div class="card text-center border">
+            <div class="card text-center border" style="height:100%;">
                 <div class="card-header text-center text-uppercase justify-content-center">
-                     {{recolector.company_name}}
+                    {% if recolector.profile.company_name == null or recolector.profile.company_name == "" %}
+                        {{recolector.profile.user.username}}   
+                    {% else %}
+                     {{recolector.profile.company_name}}
+                    {% endif %}
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">Residuo</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <p>{{recolector.direction}}</p>
-                    <p>{{recolector.phone_number}}</p>
-                    <p>{{recolector.user.email}}</p>
+                    
+                    <p class="card-text">
+                        {% if recolector.description %}
+                            {{recolector.description}}
+                        {% else %}
+                            No hay descripción
+                        {% endif %}
+                    </p>
+                    <h4 class="card-text">Residuos que recolectan</h4>
+                    <ul class="lista_residuos">
+                        {% if recolector.plastic == 1%}     <li class="text-left">Plastico</li> {%endif%}
+                        {% if recolector.glass == 1%}       <li class="text-left">Vidrio</li> {%endif%}
+                        {% if recolector.metal == 1%}       <li class="text-left">Metal</li> {%endif%}
+                        {% if recolector.cardboard == 1%}   <li class="text-left">Cartón</li> {%endif%}
+                        {% if recolector.trash == 1%}       <li class="text-left">Organicos</li> {%endif%}
+                        {% if recolector.paper == 1%}       <li class="text-left">Papel</li> {%endif%}
+                    </ul>
                 </div>
                 <div class="card-footer">
-                    <button type="button" class="btn btn-primary m-1">Aceptar</button>
+                    <button id= 'aceptar{{recolector.id}}' type="button" class="btn btn-primary m-1" onclick="aceptar_recolector(  {{recolector.id}}  ) ">Aceptar</button>
                     <button type="button" class="btn btn-secondary m-1">Rechazar</button>
                 </div>
             </div>
         </div>
-        <div class="col-12 col-sm-12 col-md-4 mb-2">
-            <div class="card text-center border-success">
-                <div class="card-header bg-transparent border-success">{{recolector.company_name}}</div>
-                <div class="card-body">
-                    <h5 class="card-title">Residuo</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <p>{{recolector.direction}}</p>
-                    <p>{{recolector.phone_number}}</p>
-                    <p>{{recolector.user.email}}</p>
-                </div>
-                <div class="card-footer bg-transparent border-success">
-                    <button type="button" class="btn btn-primary m-1">Aceptar</button>
-                    <button type="button" class="btn btn-secondary m-1">Rechazar</button>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-sm-12 col-md-4">
-            <div class="card text-center border-success">
-                <div class="card-header bg-transparent border-success">{{recolector.company_name}}</div>
-                <div class="card-body">
-                    <h5 class="card-title">Residuo</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <p>{{recolector.direction}}</p>
-                    <p>{{recolector.phone_number}}</p>
-                    <p>{{recolector.user.email}}</p>
-                </div>
-                <div class="card-footer bg-transparent border-success">
-                    <button type="button" class="btn btn-primary m-1">Aceptar</button>
-                    <button type="button" class="btn btn-secondary m-1">Rechazar</button>
-                </div>
-            </div>
-        </div>
+        
         {% endfor %}
     </div>
 </div>
 
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal_confirmar" tabindex="-1" aria-labelledby="modal_confirmarLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Información </h5>
+          <h5 class="modal-title" id="modal_confirmarLabel">Información </h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
             <div class="mb-3">
-                <label for="user" class="col-form-label">Telefono:</label>
-                <input type="text" class="form-control" name="user" id="user" value ="{{ productor.phone_number }}" readonly>
+                <label for="user" class="col-form-label">Notificacion enviada exitosamente</label>
             </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
         </div>
       </div>
     </div>
@@ -114,7 +86,6 @@
 {% block stylesheets %}
     {{block.super}}
     <link rel="stylesheet" href="{% static 'css/consulta.css'%}">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
 {% endblock%}
 
 {% block javascripts %}

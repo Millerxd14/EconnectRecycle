@@ -1,15 +1,23 @@
 '''users views'''
+
+'''Otras cositas'''
+import json
+from datetime import date
+from django.db import IntegrityError
+
+# django
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
+from django.http import JsonResponse
+from notifications_app.models import BroadcastNotification
 
 #forms 
-
 from users.forms import ProfileForm, SingUpForm, AdvanceProfileForm
-from users.models import Info_Recolector, Profile
+from users.models import Info_Recolector, Profile, VProductorRecolector
 
 # except careverga
-from django.db.utils import IntegrityError
 from django.contrib.auth.models import User
 
 
@@ -92,16 +100,20 @@ def update_profile(request):
     else:
         form = ProfileForm()
         if(profile.is_collector == 1):
-            form_advance = AdvanceProfileForm(request.POST)         
+            form_advance = AdvanceProfileForm()         
     
     if(profile.is_collector == 1):
             info_recolector = Info_Recolector.objects.get(profile = profile)
     else:
         info_recolector = ''
-        
+
+
+
     bandera = 0
     if(profile.update_counter == 1):
         bandera = 1
+
+
     return render(request, 'users/actualizar_perfil.html',{
         'profile': profile,
         'info_recolector':info_recolector,
@@ -130,7 +142,7 @@ def recolectores(request):
     profile = request.user.profile
     user = request.user
     #buscar recolectores por usuario en 
-    recolectores = Profile.objects.filter(is_collector = 1)
+    recolectores = Info_Recolector.objects.all()
     context ={
         'profile': profile,
         'user': request.user,
@@ -143,11 +155,137 @@ def recolectores(request):
 @login_required
 def productores(request):
     profile = request.user.profile
-    
-    productores = Profile.objects.filter(is_productor = 1)
+    usuarios_aceptados = VProductorRecolector.objects.filter(recolector= request.user)
     context = {
         'profile': profile,
         'user': request.user,
-        'productores': productores,
+        'productores': usuarios_aceptados,
     }
     return render(request, 'users/productores.html',context)
+
+
+
+
+@login_required
+def buscar_recolector(request):
+    if request.method == 'POST':
+        return 0
+    else:
+        texto = request.GET['texto_usuario']
+        residuo = request.GET['residuo']
+        filtro_residuo = Q(profile__company_name__contains=texto)
+        if(residuo == 'plastic'):
+            filtro_residuo = Q(plastic = 1)
+        elif(residuo == 'glass'):
+            filtro_residuo = Q(glass = 1)
+        elif(residuo == 'metal'):
+            filtro_residuo = Q(metal = 1)
+        elif(residuo == 'cardboard'):
+            filtro_residuo = Q(cardboard = 1)
+        elif(residuo == 'trash'):
+            filtro_residuo = Q(trash = 1)
+        elif(residuo == 'paper'):
+            filtro_residuo = Q(paper = 1)
+        recolectores = Info_Recolector.objects.filter( 
+            (Q(profile__user__username__contains=texto) | 
+            Q(profile__company_name__contains=texto)) & 
+            filtro_residuo)
+        data = {}
+        i= 0
+        for recolector in recolectores:
+            data[i] = {
+                'company_name'  : recolector.profile.company_name,
+                'username': recolector.profile.user.username, 
+                'description': recolector.description,
+                'plastic'       : recolector.plastic,
+                'glass'        : recolector.glass,
+                'metal'        : recolector.metal,
+                'cardboard'    : recolector.cardboard,
+                'trash'        : recolector.trash,
+                'paper'        : recolector.paper
+                }
+            i = i+1
+        return JsonResponse(data)
+
+
+@login_required
+def aceptar_recolector(request, id_info):
+
+    info = Info_Recolector.objects.get(id = id_info)
+    recolector = info.profile.user
+    productor = request.user
+    mensaje = 'El usuario '+ productor.username +' quiere comunicarse contigo'
+    try:
+        nueva_visualizacion = VProductorRecolector(
+            autoriza_recolector = 0,
+            autoriza_productor = 1,
+            productor = productor,
+            recolector = recolector
+        )
+        
+
+        notificacion = BroadcastNotification(
+            mensaje = mensaje, 
+            estado = 0, 
+            broadcast_on= date.today(), 
+            usuario_propietario = recolector, 
+            usuario_enviador=productor,
+            direccion = 'users:productores'
+        )
+        nueva_visualizacion.save()
+        notificacion.save()
+        return JsonResponse({
+            'titulo' : 'Exito !',
+            'mensaje': 'Notificacion enviada, pronto se comunicarán contigo',
+            'tipo': 'success'
+        })
+    except IntegrityError:
+        return JsonResponse({
+            'titulo' : 'Ups !',
+            'mensaje': 'Ocurrió un error inesperado, comprueba que no hayas  aceptado a este recolector antes',
+            'tipo': 'error'
+        })
+    
+@login_required
+def aceptar_productor(request, id):
+    productor  = User.objects.get(id = id)
+    recolector = request.user
+    mensaje = 'El recolector '+ recolector.username +' aceptó la comunicación contigo'
+
+    visualizacion = VProductorRecolector.objects.get(
+        productor = productor,
+        recolector = recolector
+    )
+    datos_productor = Profile.objects.get(user = productor)
+    print(visualizacion.productor.id, visualizacion.recolector.id, visualizacion.autoriza_recolector)
+    if(visualizacion.autoriza_recolector == '0'):
+        print('Entras ??')
+        visualizacion.autoriza_recolector = 1
+        visualizacion.save()
+
+        notificacion = BroadcastNotification(
+            mensaje = mensaje, 
+            estado = 0, 
+            broadcast_on= date.today(), 
+            usuario_propietario = productor, 
+            usuario_enviador=recolector,
+            direccion = 'users:recolectores'
+        )
+
+        notificacion.save()
+        
+        return JsonResponse({
+            'titulo' : 'Exito !',
+            'mensaje': 'Notificacion enviada, pronto se comunicarán contigo',
+            'tipo': 'success',
+            'telefono_productor': datos_productor.phone_number,
+            'correo_productor':productor.email,
+        })
+    else:
+        return JsonResponse({
+            'titulo' : 'Alerta !',
+            'mensaje': 'Ya has aceptado a este productor previamente',
+            'tipo': 'notice',
+            'telefono_productor': datos_productor.phone_number,
+            'correo_productor':productor.email,
+        })
