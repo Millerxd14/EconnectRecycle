@@ -65,5 +65,14 @@ urlpatterns = [
         view=views.aceptar_productor,
         name = 'aceptar_productor'
     ),
-
+    path(
+        route='rechazar_visualizacion/<str:tipo>/<int:id>',
+        view=views.rechazar_visualizacion,
+        name = 'rechazar_visualizacion'
+    ),
+    path(
+        route='datos_usuario/<int:id>',
+        view=views.datos_usuario,
+        name = 'datos_usuario'
+    ),
 ]

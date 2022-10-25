@@ -44,6 +44,39 @@ function aceptar_productor(id){
 }
 
 
+function rechazar_visualizacion(tipo, id){
+  completa_url = '/users/rechazar_visualizacion/'+tipo+'/'+id;
+  $.ajax({
+    type: "GET",
+    url: completa_url,
+    data: id= id,
+      success: function(data)
+      {
+        send_notification( data['tipo'],data['titulo'],data['mensaje'],'3000');
+        setTimeout("location.reload(true);", 1000);
+      }
+  });
+}
+
+
+
+function datos_usuario(id){
+  completa_url = '/users/datos_usuario/'+id;
+  $.ajax({
+    type: "GET",
+    url: completa_url,
+    data: id= id,
+      success: function(data)
+      { 
+        contenido = '<p>'+ data['telefono_productor']+'</p>'+ '<p>'+ data['correo_productor']+'</p>';
+        $('#contenido_datos_usuarios').html(contenido);
+        $('#modal_datos_usuario').modal('show');
+      }
+  });
+}
+
+
+
 
 function buscar_canecas(id_usuario, nombre_usuario){
   completa_url = '/caneca/buscar_canecas/'+id_usuario;

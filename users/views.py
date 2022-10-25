@@ -3,6 +3,7 @@
 '''Otras cositas'''
 import json
 from datetime import date
+from math import prod
 from django.db import IntegrityError
 
 # django
@@ -140,12 +141,16 @@ def advance_update_profile(request):
 @login_required
 def recolectores(request):
     profile = request.user.profile
-    user = request.user
     #buscar recolectores por usuario en 
+
+    verificado_uno = VProductorRecolector.objects.filter(autoriza_productor = 1).filter(productor = request.user).values_list('recolector_id', flat=True)
+
+
     recolectores = Info_Recolector.objects.all()
     context ={
         'profile': profile,
         'user': request.user,
+        'aceptados': verificado_uno,
         'recolectores':recolectores,
     }
     return render(request, 'users/recolectores.html',context)
@@ -155,11 +160,14 @@ def recolectores(request):
 @login_required
 def productores(request):
     profile = request.user.profile
-    usuarios_aceptados = VProductorRecolector.objects.filter(recolector= request.user)
+    usuarios_aceptados = VProductorRecolector.objects.filter(recolector= request.user).filter(autoriza_productor = 1)
+    doble_verificado = VProductorRecolector.objects.filter(recolector= request.user).filter(autoriza_recolector = 1).values_list('productor_id', flat=True)
+
     context = {
         'profile': profile,
         'user': request.user,
         'productores': usuarios_aceptados,
+        'aceptados': doble_verificado
     }
     return render(request, 'users/productores.html',context)
 
@@ -207,6 +215,16 @@ def buscar_recolector(request):
             i = i+1
         return JsonResponse(data)
 
+@login_required
+def datos_usuario(request, id):
+
+    user = User.objects.get(id = id)
+    profile = Profile.objects.get(user = user)
+
+    return JsonResponse({
+        'telefono_productor': profile.phone_number,
+        'correo_productor':user.email,
+    }) 
 
 @login_required
 def aceptar_recolector(request, id_info):
@@ -215,6 +233,27 @@ def aceptar_recolector(request, id_info):
     recolector = info.profile.user
     productor = request.user
     mensaje = 'El usuario '+ productor.username +' quiere comunicarse contigo'
+
+    existencia = VProductorRecolector.objects.get(recolector = recolector, productor = productor)
+
+
+    if(existencia.autoriza_productor == '0'):
+        existencia.autoriza_productor = 1
+        existencia.save()
+        notificacion = BroadcastNotification(
+            mensaje = mensaje, 
+            estado = 0, 
+            broadcast_on= date.today(), 
+            usuario_propietario = recolector, 
+            usuario_enviador=productor,
+            direccion = 'users:productores'
+        )
+        notificacion.save()
+        return JsonResponse({
+            'titulo' : 'Exito !',
+            'mensaje': 'Notificacion enviada, pronto se comunicarán contigo',
+            'tipo': 'success'
+        })
     try:
         nueva_visualizacion = VProductorRecolector(
             autoriza_recolector = 0,
@@ -257,9 +296,9 @@ def aceptar_productor(request, id):
         recolector = recolector
     )
     datos_productor = Profile.objects.get(user = productor)
-    print(visualizacion.productor.id, visualizacion.recolector.id, visualizacion.autoriza_recolector)
+
+
     if(visualizacion.autoriza_recolector == '0'):
-        print('Entras ??')
         visualizacion.autoriza_recolector = 1
         visualizacion.save()
 
@@ -288,4 +327,40 @@ def aceptar_productor(request, id):
             'tipo': 'notice',
             'telefono_productor': datos_productor.phone_number,
             'correo_productor':productor.email,
+        })
+
+
+@login_required
+def rechazar_visualizacion(request,tipo,id):
+    if tipo == 'recolector':
+        productor = request.user 
+        recolector = User.objects.get(id = id)
+        visualizacion = VProductorRecolector.objects.get(productor = productor, recolector = recolector)
+        visualizacion.autoriza_productor = 0
+        visualizacion.save()
+    else:
+         
+        productor = User.objects.get(id = id)
+        recolector = request.user
+
+        mensaje = 'El recolector '+ recolector.username +' rechazó tu petición'
+        visualizacion = VProductorRecolector.objects.get(productor = productor, recolector = recolector)
+        visualizacion.autoriza_recolector = 0
+        visualizacion.autoriza_productor = 0
+        visualizacion.save()
+
+        notificacion = BroadcastNotification(
+            mensaje = mensaje, 
+            estado = 0, 
+            broadcast_on= date.today(), 
+            usuario_propietario = productor, 
+            usuario_enviador=recolector,
+            direccion = 'users:recolectores'
+        )
+        notificacion.save()
+
+    return JsonResponse({
+            'titulo' : 'Exito !',
+            'mensaje': 'Usuario rechazado correctamente',
+            'tipo': 'success'
         })

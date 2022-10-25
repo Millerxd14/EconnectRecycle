@@ -19,6 +19,25 @@
         </div>
     </div>
 </div>
+
+
+<div id = "modal_datos_usuario" class="modal fade" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog modal-lg ">
+        <div class="modal-content">
+            <div class=" modal-header">
+                <h4 class="col-md-10 text-center modal-title " id="titulo_datos_usuario">Datos</h4>
+                <button type="button" class="btn-close  btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+                <div id="contenido_datos_usuarios" class="modal-body contenido_canecas">
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+        </div>
+    </div>
+</div>
 <div class="m-5  d-flex justify-content-center row completo">
     <table id="example" class="table  table-bordered table-responsive caption-top" >
         <caption>Lista de Productores</caption>
@@ -31,7 +50,9 @@
         <tbody>
             {% for productor in productores %}
             <tr>
-                <td>{{productor.productor.username}}</td>
+                <td>
+                    <a href="javascript:datos_usuario('{{productor.productor.id}}')" >{{productor.productor.username}}</a> 
+                </td>
                 <td>{{productor.productor.get_full_name}}</td>
                 <td class="text-center">
                     <button type="button" class="mb-3 btn btn-info" onclick="buscar_canecas('{{productor.productor.id}}', '{{productor.productor.get_full_name}}')">
@@ -40,10 +61,15 @@
                         </svg> Ver canecas
                         
                     </button>
+                    
                 </td>
                 <td class="text-center">
-                    <button type="button" class="btn btn-primary m-0 " onclick="aceptar_productor('{{productor.productor.id}}')">Aceptar</button>
-                    <button type="button" class="btn btn-secondary m-0">Rechazar</button>
+                    {%if productor.productor.id in aceptados %}
+                        <button id="aceptar{{productor.productor.id}}" type="button" class="btn btn-primary m-0 " onclick="aceptar_productor('{{productor.productor.id}}')" disabled>Aceptar</button>    
+                    {% else %}
+                        <button id="aceptar{{productor.productor.id}}" type="button" class="btn btn-primary m-0 " onclick="aceptar_productor('{{productor.productor.id}}')">Aceptar</button>    
+                    {% endif %}
+                    <button type="button" class="btn btn-secondary m-0" onclick="rechazar_visualizacion('productor','{{productor.productor.id}}')">Rechazar</button>
                 </td>
             </tr>
             {% endfor %}

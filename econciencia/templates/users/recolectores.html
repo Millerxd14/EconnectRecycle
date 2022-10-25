@@ -51,8 +51,12 @@
                     </ul>
                 </div>
                 <div class="card-footer">
-                    <button id= 'aceptar{{recolector.id}}' type="button" class="btn btn-primary m-1" onclick="aceptar_recolector(  {{recolector.id}}  ) ">Aceptar</button>
-                    <button type="button" class="btn btn-secondary m-1">Rechazar</button>
+                    {% if recolector.profile.user.id in  aceptados %}
+                        <button id= 'aceptar{{recolector.id}}' type="button" class="btn btn-primary m-1" onclick="aceptar_recolector(  {{recolector.id}}  ) " disabled >Aceptar</button>
+                    {% else %}
+                        <button id= 'aceptar{{recolector.id}}' type="button" class="btn btn-primary m-1" onclick="aceptar_recolector(  {{recolector.id}}  ) " >Aceptar</button>
+                    {% endif %}
+                    <button type="button" class="btn btn-secondary m-1" onclick="rechazar_visualizacion('recolector','{{recolector.profile.user.id}}')">Rechazar</button>
                 </div>
             </div>
         </div>
