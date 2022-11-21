@@ -44,10 +44,27 @@ class CanecaApiView(viewsets.ModelViewSet):
         n_peticiones = caneca.n_peticiones + 1
         caneca.n_peticiones = n_peticiones
         caneca.save()
+        #print(request.POST['file'])
+        
+        
+        if(request.POST):
+            imagen = base64.b64decode(request.POST['file'])
+            filename = "image.jpg"
+            imagen_escribir = open(filename,'wb')   # create a writable image and write the decoding result
 
-        if(request.FILES):
 
-            img = Image.open(request.FILES['file'])
+            imagen_escribir.write(imagen)
+            #img = open(imagen)
+            '''
+            im = plt.imread("image.jpg")
+            fig, ax = plt.subplots()
+            im = ax.imshow(im, extent=[0, 300, 0, 300])
+            x = np.array(range(300))
+            ax.plot(x, x, ls='dotted', linewidth=2, color='red')
+            plt.show()
+            '''
+            
+            img = Image.open('image.jpg')
             image_solve = model_ia.predict_external_image(img)
            
 
@@ -67,7 +84,6 @@ class CanecaApiView(viewsets.ModelViewSet):
                 },
                 status= status.HTTP_400_BAD_REQUEST
             )
-
     def list(self, request):
         user = request.user
         queryset = Caneca.objects.filter(user = user)
