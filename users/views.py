@@ -219,12 +219,20 @@ def buscar_recolector(request):
 def datos_usuario(request, id):
 
     user = User.objects.get(id = id)
+    recolector = request.user
     profile = Profile.objects.get(user = user)
-
-    return JsonResponse({
+    visible = VProductorRecolector.objects.get(recolector = recolector, productor = user)
+    if(visible.autoriza_productor == '1' and visible.autoriza_recolector == '1'):
+        context = {
         'telefono_productor': profile.phone_number,
         'correo_productor':user.email,
-    }) 
+        }
+    else:
+        context = {
+        'telefono_productor': '',
+        'correo_productor':'',
+        }
+    return JsonResponse(context) 
 
 @login_required
 def aceptar_recolector(request, id_info):
