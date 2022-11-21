@@ -24,7 +24,9 @@ from canecas.script_ia import model_ia
 
 #Otras librerias
 import numpy as np
+import base64 
 from PIL import Image
+from matplotlib import pyplot as plt
 
 
 
