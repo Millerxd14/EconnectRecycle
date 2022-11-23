@@ -6,6 +6,8 @@ from django.contrib.auth.models import User
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 from notifications_app.models import BroadcastNotification
+from datetime import datetime
+
 
 
 class Caneca(models.Model):
@@ -43,12 +45,14 @@ def notification_handler(sender,instance, created,**kwargs):
     #call group_send function directly to send notifications or crear una tarea dinamica con celery pero no sé como hacer esa mondá
     caneca = instance
     usuario_defatult = instance.user
+    # datetime object containing current date and time
+    now = datetime.now()
     if(caneca.cardboard >= 80 ):
         mensaje = f"Tu caneca está llenandose de cartón, tiene {caneca.cardboard}%"
         notificacion = BroadcastNotification(
             mensaje = mensaje, 
             estado = 0, 
-            broadcast_on= date.today(), 
+            broadcast_on= now.strftime("%d/%m/%Y %H:%M:%S"), 
             usuario_propietario = usuario_defatult, 
             usuario_enviador=usuario_defatult,
             direccion = 'canecas:consultas'
@@ -59,7 +63,7 @@ def notification_handler(sender,instance, created,**kwargs):
         notificacion = BroadcastNotification(
             mensaje = mensaje, 
             estado = 0, 
-            broadcast_on= date.today(), 
+            broadcast_on= now.strftime("%d/%m/%Y %H:%M:%S"), 
             usuario_propietario = usuario_defatult, 
             usuario_enviador=usuario_defatult,
             direccion = 'canecas:consultas'
@@ -70,7 +74,7 @@ def notification_handler(sender,instance, created,**kwargs):
         notificacion = BroadcastNotification(
             mensaje = mensaje, 
             estado = 0, 
-            broadcast_on= date.today(), 
+            broadcast_on= now.strftime("%d/%m/%Y %H:%M:%S"), 
             usuario_propietario = usuario_defatult, 
             usuario_enviador=usuario_defatult,
             direccion = 'canecas:consultas'
@@ -81,7 +85,7 @@ def notification_handler(sender,instance, created,**kwargs):
         notificacion = BroadcastNotification(
             mensaje = mensaje, 
             estado = 0, 
-            broadcast_on= date.today(), 
+            broadcast_on= now.strftime("%d/%m/%Y %H:%M:%S"), 
             usuario_propietario = usuario_defatult, 
             usuario_enviador=usuario_defatult,
             direccion = 'canecas:consultas'
@@ -92,7 +96,7 @@ def notification_handler(sender,instance, created,**kwargs):
         notificacion = BroadcastNotification(
             mensaje = mensaje, 
             estado = 0, 
-            broadcast_on= date.today(), 
+            broadcast_on= now.strftime("%d/%m/%Y %H:%M:%S"), 
             usuario_propietario = usuario_defatult, 
             usuario_enviador=usuario_defatult,
             direccion = 'canecas:consultas'
@@ -103,7 +107,7 @@ def notification_handler(sender,instance, created,**kwargs):
         notificacion = BroadcastNotification(
             mensaje = mensaje, 
             estado = 0, 
-            broadcast_on= date.today(), 
+            broadcast_on= now.strftime("%d/%m/%Y %H:%M:%S"), 
             usuario_propietario = usuario_defatult, 
             usuario_enviador=usuario_defatult,
             direccion = 'canecas:consultas'
