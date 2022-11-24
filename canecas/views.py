@@ -131,9 +131,12 @@ class CanecaApiView(viewsets.ModelViewSet):
         try:
             caneca = Caneca.objects.get(pk=pk)
             if( caneca in canecas_user ):
+                
                 serializer = CanecaSerializer(caneca, data = request.data, partial =True)
+                
                 if(serializer.is_valid()):
                     serializer.save()
+                    
                     return Response(serializer.data)
                 return Response(serializer.errors,status= status.HTTP_400_BAD_REQUEST)
             else:
@@ -148,10 +151,12 @@ class CanecaApiView(viewsets.ModelViewSet):
             return Response(
                 {
                     'status': '400',
-                    'message': 'Invalid Caneca id'
+                    'message': 'Invalid Caneca except id'
                 },
                 status=status.HTTP_400_BAD_REQUEST
             )
+        
+        
     
     
 @login_required

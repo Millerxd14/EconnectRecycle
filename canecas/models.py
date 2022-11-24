@@ -52,7 +52,7 @@ def notification_handler(sender,instance, created,**kwargs):
         notificacion = BroadcastNotification(
             mensaje = mensaje, 
             estado = 0, 
-            broadcast_on= now.strftime("%d/%m/%Y %H:%M:%S"), 
+            broadcast_on= date.today(), 
             usuario_propietario = usuario_defatult, 
             usuario_enviador=usuario_defatult,
             direccion = 'canecas:consultas'
@@ -63,7 +63,7 @@ def notification_handler(sender,instance, created,**kwargs):
         notificacion = BroadcastNotification(
             mensaje = mensaje, 
             estado = 0, 
-            broadcast_on= now.strftime("%d/%m/%Y %H:%M:%S"), 
+            broadcast_on= date.today(), 
             usuario_propietario = usuario_defatult, 
             usuario_enviador=usuario_defatult,
             direccion = 'canecas:consultas'
@@ -74,7 +74,7 @@ def notification_handler(sender,instance, created,**kwargs):
         notificacion = BroadcastNotification(
             mensaje = mensaje, 
             estado = 0, 
-            broadcast_on= now.strftime("%d/%m/%Y %H:%M:%S"), 
+            broadcast_on= date.today(), 
             usuario_propietario = usuario_defatult, 
             usuario_enviador=usuario_defatult,
             direccion = 'canecas:consultas'
@@ -85,7 +85,7 @@ def notification_handler(sender,instance, created,**kwargs):
         notificacion = BroadcastNotification(
             mensaje = mensaje, 
             estado = 0, 
-            broadcast_on= now.strftime("%d/%m/%Y %H:%M:%S"), 
+            broadcast_on= date.today(), 
             usuario_propietario = usuario_defatult, 
             usuario_enviador=usuario_defatult,
             direccion = 'canecas:consultas'
@@ -96,7 +96,7 @@ def notification_handler(sender,instance, created,**kwargs):
         notificacion = BroadcastNotification(
             mensaje = mensaje, 
             estado = 0, 
-            broadcast_on= now.strftime("%d/%m/%Y %H:%M:%S"), 
+            broadcast_on= date.today(), 
             usuario_propietario = usuario_defatult, 
             usuario_enviador=usuario_defatult,
             direccion = 'canecas:consultas'
@@ -107,7 +107,7 @@ def notification_handler(sender,instance, created,**kwargs):
         notificacion = BroadcastNotification(
             mensaje = mensaje, 
             estado = 0, 
-            broadcast_on= now.strftime("%d/%m/%Y %H:%M:%S"), 
+            broadcast_on= date.today(), 
             usuario_propietario = usuario_defatult, 
             usuario_enviador=usuario_defatult,
             direccion = 'canecas:consultas'
