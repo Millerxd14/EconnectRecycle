@@ -7,7 +7,8 @@ from .models import BroadcastNotification
 from django.contrib.auth.models import User
 from channels.db import database_sync_to_async
 from django.core import serializers
-
+from datetime import timezone, datetime, timedelta
+import pytz
 
 
 class NotificationConsumer(AsyncWebsocketConsumer):
@@ -53,15 +54,17 @@ class NotificationConsumer(AsyncWebsocketConsumer):
         notificaciones = await database_sync_to_async(self.obtener_notificaciones_usuario)(id_notificacion)
 
         await self.send(text_data=notificaciones)
+        
 
     def obtener_notificaciones_usuario(self,id):
         usuario = User.objects.get(username = self.scope["user"])
         notificacion = BroadcastNotification.objects.get(pk = id)
         lista = []
         if(usuario.username == notificacion.usuario_propietario.username):
+            
             lista.append({
                 'mensaje': notificacion.mensaje,
-                'fecha':   notificacion.broadcast_on.strftime("%d/%m/%Y, %H:%M"),
+                'fecha':   notificacion.broadcast_on.strftime('%Y-%m-%d %H:%M:%S'),
                 'estado': notificacion.estado,
                 'direccion': notificacion.direccion
             })

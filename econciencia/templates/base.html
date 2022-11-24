@@ -88,7 +88,7 @@
                                             </div>
                                             <div class="col">
                                                 <p>{{notificacion.mensaje}}</p>
-                                                <p class="tiempo_notificaciones">{{notificacion.broadcast_on|date:"d/m/Y, H:m"}}</p>
+                                                <p class="tiempo_notificaciones">{{notificacion.broadcast_on|date:"d/m/Y, H:i"}}</p>
                                                 <p></p>
                                             </div>
                                             
@@ -199,6 +199,8 @@
 
                 var mensaje_notificacion = data[0]['mensaje'];
                 var fecha = data[0]['fecha'];
+                var fecha_mamada = new Date(fecha+' GMT');
+                console.log(fecha_mamada);
 
                 var direccion = '';
                 if(data[0]['direccion'] == 'canecas:consultas'){
@@ -222,7 +224,7 @@
                         '</div>'+
                         '<div class="col">'+
                             '<p>'+mensaje_notificacion+'</p>'+
-                            '<p class="tiempo_notificaciones">'+fecha+'</p>'+
+                            '<p class="tiempo_notificaciones">'+fecha_mamada.toLocaleDateString()+', '+ fecha_mamada.getHours() +':'+fecha_mamada.getMinutes()+'</p>'+
                         '</div>'+
                         '</div>'+
                     '</a>'+

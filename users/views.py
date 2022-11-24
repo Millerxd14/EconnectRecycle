@@ -2,9 +2,10 @@
 
 '''Otras cositas'''
 import json
-from datetime import date
 from math import prod
 from django.db import IntegrityError
+from datetime import datetime
+
 
 # django
 from django.shortcuts import redirect, render
@@ -236,7 +237,8 @@ def datos_usuario(request, id):
 
 @login_required
 def aceptar_recolector(request, id_info):
-
+    now = datetime.now()
+    print(now.strftime("%Y-%m-%d %H:%M:%S"))
     info = Info_Recolector.objects.get(id = id_info)
     recolector = info.profile.user
     productor = request.user
@@ -251,7 +253,7 @@ def aceptar_recolector(request, id_info):
         notificacion = BroadcastNotification(
             mensaje = mensaje, 
             estado = 0, 
-            broadcast_on= date.today(), 
+            broadcast_on= now.strftime("%Y-%m-%d %H:%M:%S"), 
             usuario_propietario = recolector, 
             usuario_enviador=productor,
             direccion = 'users:productores'
@@ -274,7 +276,7 @@ def aceptar_recolector(request, id_info):
         notificacion = BroadcastNotification(
             mensaje = mensaje, 
             estado = 0, 
-            broadcast_on= date.today(), 
+            broadcast_on= now.strftime("%Y-%m-%d %H:%M:%S"), 
             usuario_propietario = recolector, 
             usuario_enviador=productor,
             direccion = 'users:productores'
@@ -295,6 +297,7 @@ def aceptar_recolector(request, id_info):
     
 @login_required
 def aceptar_productor(request, id):
+    now = datetime.now()
     productor  = User.objects.get(id = id)
     recolector = request.user
     mensaje = 'El recolector '+ recolector.username +' aceptó la comunicación contigo'
@@ -313,7 +316,7 @@ def aceptar_productor(request, id):
         notificacion = BroadcastNotification(
             mensaje = mensaje, 
             estado = 0, 
-            broadcast_on= date.today(), 
+            broadcast_on= now.strftime("%Y-%m-%d %H:%M:%S"), 
             usuario_propietario = productor, 
             usuario_enviador=recolector,
             direccion = 'users:recolectores'
@@ -340,6 +343,7 @@ def aceptar_productor(request, id):
 
 @login_required
 def rechazar_visualizacion(request,tipo,id):
+    now = datetime.now()
     if tipo == 'recolector':
         productor = request.user 
         recolector = User.objects.get(id = id)
@@ -360,7 +364,7 @@ def rechazar_visualizacion(request,tipo,id):
         notificacion = BroadcastNotification(
             mensaje = mensaje, 
             estado = 0, 
-            broadcast_on= date.today(), 
+            broadcast_on= now.strftime("%Y-%m-%d %H:%M:%S"), 
             usuario_propietario = productor, 
             usuario_enviador=recolector,
             direccion = 'users:recolectores'

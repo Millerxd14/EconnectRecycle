@@ -142,7 +142,7 @@ LANGUAGES = (
 )
 
 
-TIME_ZONE = 'Brazil/Acre'
+TIME_ZONE = 'America/Bogota'
 
 USE_I18N = True
 
