@@ -63,10 +63,7 @@
                             </li>
                     
                         {% else %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'canecas:consultas'%}">Canecas</a>
-                            </li>
-                            </li>
+
                             <li class="nav-item dropdown">
                                 <a class="nav-link " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" onclick="ocultar_notificacion()">
                                     <svg class="bi login__icon" width="22" height="22" fill="currentColor">
@@ -125,16 +122,27 @@
                                         <li><a class="dropdown-item" href="{% url 'users:productores'%}">
                                             Productores
                                             <svg class="bi login__icon" width="16" height="16" fill="currentColor">
-                                                <use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#trash-fill"/>
+                                                <use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#trash"/>
                                             </svg>
                                         </a></li>
                                     {% else %}
-                                        <li><a class="dropdown-item" href="{% url 'users:recolectores'%}">
-                                            Recolectores
-                                            <svg class="bi login__icon" width="16" height="16" fill="currentColor">
-                                                <use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#building"/>
-                                            </svg>
-                                        </a></li>
+                                        <li>
+                                            <a class="dropdown-item" href="{% url 'users:recolectores'%}">
+                                                Recolectores
+                                                <svg class="bi login__icon" width="16" height="16" fill="currentColor">
+                                                    <use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#building"/>
+                                                </svg>
+                                            </a>
+                                        </li>
+                                        <li>
+                                        
+                                            <a class="dropdown-item" href="{% url 'canecas:consultas'%}">
+                                                Canecas
+                                                <svg class="bi login__icon" width="16" height="16" fill="currentColor">
+                                                    <use xlink:href="{% static 'css/bootstrap-icons/bootstrap-icons.svg'%}#trash"/>
+                                                </svg>
+                                            </a>
+                                        </li>
 
                                     {% endif %}
                                     <li><a class="dropdown-item" href="{% url 'users:actualizar_perfil'%}">
